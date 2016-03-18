@@ -18,7 +18,7 @@ npm install --global gulp-cli
 
 **Clone the source and set environment variables**
 ```
-==> git clone https://dmbettinger@bitbucket.org/dmbettinger/search_locality.git
+==> git clone https://github.com/stelligent/config-rule-status.git
 ```
 
 **Install packages and configure:**
