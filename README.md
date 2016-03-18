@@ -55,8 +55,10 @@ npm install --global gulp-cli
 ==> gulp functionLogs --stage prod --region us-east-1 --functionName EC2/cidrIngress
 ```
 
+## Modifying
+
 **Create Additional Stages, Regions, and Functions**
-```
+
 Use the Serverless CLI to add new configurations and functionality:
-http://docs.serverless.com/docs/commands-overview
-```
+[http://docs.serverless.com/docs/commands-overview]
+
