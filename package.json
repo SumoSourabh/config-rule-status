@@ -1,0 +1,38 @@
+{
+  "_npmOperationalInternal": {
+    "host": "packages-5-east.internal.npmjs.com",
+    "tmp": "tmp/config-rule-status-0.2.0.tgz_1455215968713_0.15588788595050573"
+  },
+  "author": {
+    "name": "Dave Bettinger"
+  },
+  "dependencies": {
+    "cfn-config": "^0.8.5",
+    "serverless-jshint-plugin": "0.0.2",
+    "serverless-optimizer-plugin": "^1.0.0"
+  },
+  "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
+  "devDependencies": {
+    "bluebird": "^3.3.4",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0",
+    "gulp-shell": "^0.5.2",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "yargs": "^4.3.1"
+  },
+  "license": "MIT",
+  "name": "config-rule-status",
+  "optionalDependencies": {},
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/"
+  },
+  "scripts": {
+    "postInstall": "(cd configRules && npm install)"
+  },
+  "version": "0.0.1"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "cidrIngress",
+  "customName": "$${functionName}",
+  "customRole": false,
+  "handler": "EC2/cidrIngress/handler.handler",
+  "timeout": 6,
+  "memorySize": 1024,
+  "custom": {
+    "excludePatterns": [],
+    "envVars": []
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-365fe04e\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
+  "ruleParameters": "{}",
+  "resultToken": "null",
+  "eventLeftScope": false
+}

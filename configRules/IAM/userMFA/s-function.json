@@ -1,0 +1,12 @@
+{
+  "name": "userMFA",
+  "customName": "$${functionName}",
+  "customRole": false,
+  "handler": "IAM/userMFA/handler.handler",
+  "timeout": 6,
+  "memorySize": 1024,
+  "custom": {
+    "excludePatterns": [],
+    "envVars": []
+  }
+}

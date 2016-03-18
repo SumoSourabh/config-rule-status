@@ -1,0 +1,12 @@
+{
+  "name": "tester",
+  "customName": "$${functionName}",
+  "customRole": false,
+  "handler": "tester/handler.handler",
+  "timeout": 6,
+  "memorySize": 1024,
+  "custom": {
+    "excludePatterns": [],
+    "envVars": []
+  }
+}

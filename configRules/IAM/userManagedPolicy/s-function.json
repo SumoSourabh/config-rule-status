@@ -1,0 +1,12 @@
+{
+  "name": "userManagedPolicy",
+  "customName": "$${functionName}",
+  "customRole": false,
+  "handler": "IAM/userManagedPolicy/handler.handler",
+  "timeout": 6,
+  "memorySize": 1024,
+  "custom": {
+    "excludePatterns": [],
+    "envVars": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "config-rule-status",
+  "version": "0.0.1",
+  "profile": "config-rule-status-v0.0.1",
+  "location": "https://github.com/...",
+  "author": "",
+  "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
+  "custom": {},
+  "plugins": [
+    "serverless-optimizer-plugin",
+    "serverless-jshint-plugin"
+  ]
+}

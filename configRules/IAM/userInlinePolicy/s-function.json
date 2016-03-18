@@ -1,0 +1,12 @@
+{
+  "name": "userInlinePolicy",
+  "customName": "$${functionName}",
+  "customRole": false,
+  "handler": "IAM/userInlinePolicy/handler.handler",
+  "timeout": 6,
+  "memorySize": 1024,
+  "custom": {
+    "excludePatterns": [],
+    "envVars": []
+  }
+}
