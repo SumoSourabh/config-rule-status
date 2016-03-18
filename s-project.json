@@ -2,8 +2,8 @@
   "name": "config-rule-status",
   "version": "0.0.1",
   "profile": "config-rule-status-v0.0.1",
-  "location": "https://github.com/...",
-  "author": "",
+  "location": "https://github.com/stelligent/config-rule-status.git",
+  "author": "Dave Bettinger",
   "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
   "custom": {},
   "plugins": [
