@@ -7,11 +7,15 @@ var argv = require('yargs').argv;
 var CFNRunner = require('./cfn/cfnRunner');
 
 gulp.task('initProject', shell.task(
-    ['serverless project init -s <%= argStage %> -r <%= argRegion %>'],
+    ['serverless project init -n <%= argName %> -d <%= argBucket %>  -s <%= argStage %> -r <%= argRegion %> -p <%= argProfile %> -e <%= argEmail %>'],
     {
         "verbose": true, "interactive": true, "templateData": {
+        argName: argv.name,
+        argBucket: argv.bucket,
         argStage: argv.stage,
-        argRegion: argv.region
+        argRegion: argv.region,
+        argProfile: argv.awsProfile,
+        argEmail: argv.email
     }
     })
 );
@@ -83,8 +87,13 @@ gulp.task('deployConfigRuleResources', ['deployConfigServiceResources'], functio
     cfnRunner.deployStack(cb);
 });
 
-gulp.task('deleteConfigResources', function (cb) {
-    var cfnRunner = new CFNRunner(argv.region, argv.stackName);
+gulp.task('deleteConfigServiceResources', function (cb) {
+    var cfnRunner = new CFNRunner(argv.region, 'ConfigServiceStack');
+    cfnRunner.deleteStack(cb);
+});
+
+gulp.task('deleteConfigRuleResources', function (cb) {
+    var cfnRunner = new CFNRunner(argv.region, 'ConfigRuleStack');
     cfnRunner.deleteStack(cb);
 });
 

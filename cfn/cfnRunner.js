@@ -42,7 +42,7 @@ function CFNRunner(region, stackName) {
 
 CFNRunner.prototype.setCredentials = function() {
     var fs = require('fs');
-    var credsFileContents = fs.readFileSync('.env', 'utf8');
+    var credsFileContents = fs.readFileSync('admin.env', 'utf8');
     var lines = credsFileContents.split('\n');
     var aws_access_key_id;
     var aws_secret_access_key;
@@ -50,10 +50,10 @@ CFNRunner.prototype.setCredentials = function() {
         var kvPair = cv.split('=');
         var key = kvPair[0];
         var val = kvPair[1];
-        if (key === 'AWS_ACCESS_KEY_ID') {
+        if (key === 'SERVERLESS_ADMIN_AWS_ACCESS_KEY_ID') {
             aws_access_key_id = val;
         }
-        if (key === 'AWS_SECRET_ACCESS_KEY') {
+        if (key === 'SERVERLESS_ADMIN_AWS_SECRET_ACCESS_KEY') {
             aws_secret_access_key = val;
         }
 
