@@ -96,10 +96,30 @@
                 {
                   "Effect": "Allow",
                   "Action": [
-                    "config:Put*",
+                    "cloudtrail:DescribeTrails",
                     "ec2:Describe*",
-                    "iam:List*",
-                    "iam:Get*"
+                    "config:Put*",
+                    "cloudtrail:GetTrailStatus",
+                    "s3:GetObject",
+                    "iam:GetAccountAuthorizationDetails",
+                    "iam:GetGroup",
+                    "iam:GetGroupPolicy",
+                    "iam:GetPolicy",
+                    "iam:GetPolicyVersion",
+                    "iam:GetRole",
+                    "iam:GetRolePolicy",
+                    "iam:GetUser",
+                    "iam:GetUserPolicy",
+                    "iam:ListAttachedGroupPolicies",
+                    "iam:ListAttachedRolePolicies",
+                    "iam:ListAttachedUserPolicies",
+                    "iam:ListEntitiesForPolicy",
+                    "iam:ListGroupPolicies",
+                    "iam:ListGroupsForUser",
+                    "iam:ListInstanceProfilesForRole",
+                    "iam:ListPolicyVersions",
+                    "iam:ListRolePolicies",
+                    "iam:ListUserPolicies"
                   ],
                   "Resource": "*"
                 }
