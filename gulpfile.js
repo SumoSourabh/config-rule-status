@@ -87,12 +87,12 @@ gulp.task('deployConfigRuleResources', ['deployConfigServiceResources'], functio
     cfnRunner.deployStack(cb);
 });
 
-gulp.task('deleteConfigServiceResources', function (cb) {
+gulp.task('removeConfigServiceResources', function (cb) {
     var cfnRunner = new CFNRunner(argv.region, 'ConfigServiceStack');
     cfnRunner.deleteStack(cb);
 });
 
-gulp.task('deleteConfigRuleResources', function (cb) {
+gulp.task('removeConfigRuleResources', function (cb) {
     var cfnRunner = new CFNRunner(argv.region, 'ConfigRuleStack');
     cfnRunner.deleteStack(cb);
 });

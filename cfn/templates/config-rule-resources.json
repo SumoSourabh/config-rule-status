@@ -2,17 +2,15 @@
   "AWSTemplateFormatVersion":"2010-09-09",
   "Description":"Creates Config rules and permissions",
   "Parameters": {
-    "LambdaArnBase": {
-      "Type": "String",
-      "Default": "arn:aws:lambda:"
-    },
-    "LambdaArnFunctionPrefix": {
-      "Type": "String",
-      "Default": ":function:ConfigRuleStatus"
-    },
     "LambdaStage":{
       "Type": "String",
       "Default": "prod"
+    }
+  },
+  "Mappings": {
+    "LambdaArn":{
+      "Base": {"Segment": "arn:aws:lambda:"},
+      "FunctionPrefix": {"Segment": ":function:ConfigRuleStatus"}
     }
   },
   "Resources":{
@@ -83,11 +81,11 @@
             }
           ],
           "SourceIdentifier":{"Fn::Join":["", [
-            { "Ref" : "LambdaArnBase" },
+            { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
             {"Fn::Join":[":",[
               {"Ref": "AWS::Region"},
               {"Ref": "AWS::AccountId"}]]},
-            {"Ref": "LambdaArnFunctionPrefix"},
+            { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
             {"Fn::Join":[":",["-userMFA", {"Ref": "LambdaStage"} ]]}
           ]
           ]}
@@ -114,11 +112,11 @@
             }
           ],
           "SourceIdentifier":{"Fn::Join":["", [
-            { "Ref" : "LambdaArnBase" },
+            { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
             {"Fn::Join":[":",[
               {"Ref": "AWS::Region"},
               {"Ref": "AWS::AccountId"}]]},
-            {"Ref": "LambdaArnFunctionPrefix"},
+            { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
             {"Fn::Join":[":",["-userInlinePolicy", {"Ref": "LambdaStage"} ]]}
           ]
           ]}
@@ -145,11 +143,11 @@
             }
           ],
           "SourceIdentifier":{"Fn::Join":["", [
-            { "Ref" : "LambdaArnBase" },
+            { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
             {"Fn::Join":[":",[
               {"Ref": "AWS::Region"},
               {"Ref": "AWS::AccountId"}]]},
-            {"Ref": "LambdaArnFunctionPrefix"},
+            { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
             {"Fn::Join":[":",["-userManagedPolicy", {"Ref": "LambdaStage"} ]]}
           ]
           ]}
@@ -176,11 +174,11 @@
             }
           ],
           "SourceIdentifier":{"Fn::Join":["", [
-            { "Ref" : "LambdaArnBase" },
+            { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
             {"Fn::Join":[":",[
               {"Ref": "AWS::Region"},
               {"Ref": "AWS::AccountId"}]]},
-            {"Ref": "LambdaArnFunctionPrefix"},
+            { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
             {"Fn::Join":[":",["-cidrIngress", {"Ref": "LambdaStage"} ]]}
           ]
           ]}
@@ -207,11 +205,11 @@
             }
           ],
           "SourceIdentifier":{"Fn::Join":["", [
-            { "Ref" : "LambdaArnBase" },
+            { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
             {"Fn::Join":[":",[
               {"Ref": "AWS::Region"},
               {"Ref": "AWS::AccountId"}]]},
-            {"Ref": "LambdaArnFunctionPrefix"},
+            { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
             {"Fn::Join":[":",["-cidrEgress", {"Ref": "LambdaStage"} ]]}
           ]
           ]}
@@ -223,11 +221,11 @@
       "Type":"AWS::Lambda::Permission",
       "Properties":{
         "FunctionName":{"Fn::Join":["", [
-          { "Ref" : "LambdaArnBase" },
+          { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
           {"Fn::Join":[":",[
             {"Ref": "AWS::Region"},
             {"Ref": "AWS::AccountId"}]]},
-          {"Ref": "LambdaArnFunctionPrefix"},
+          { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
           {"Fn::Join":[":",["-userMFA", {"Ref": "LambdaStage"} ]]}
         ]
         ]},
@@ -239,11 +237,11 @@
       "Type":"AWS::Lambda::Permission",
       "Properties":{
         "FunctionName":{"Fn::Join":["", [
-          { "Ref" : "LambdaArnBase" },
+          { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
           {"Fn::Join":[":",[
             {"Ref": "AWS::Region"},
             {"Ref": "AWS::AccountId"}]]},
-          {"Ref": "LambdaArnFunctionPrefix"},
+          { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
           {"Fn::Join":[":",["-userInlinePolicy", {"Ref": "LambdaStage"} ]]}
         ]
         ]},
@@ -255,11 +253,11 @@
       "Type":"AWS::Lambda::Permission",
       "Properties":{
         "FunctionName":{"Fn::Join":["", [
-          { "Ref" : "LambdaArnBase" },
+          { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
           {"Fn::Join":[":",[
             {"Ref": "AWS::Region"},
             {"Ref": "AWS::AccountId"}]]},
-          {"Ref": "LambdaArnFunctionPrefix"},
+          { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
           {"Fn::Join":[":",["-userManagedPolicy", {"Ref": "LambdaStage"} ]]}
         ]
         ]},
@@ -271,11 +269,11 @@
       "Type":"AWS::Lambda::Permission",
       "Properties":{
         "FunctionName":{"Fn::Join":["", [
-          { "Ref" : "LambdaArnBase" },
+          { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
           {"Fn::Join":[":",[
             {"Ref": "AWS::Region"},
             {"Ref": "AWS::AccountId"}]]},
-          {"Ref": "LambdaArnFunctionPrefix"},
+          { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
           {"Fn::Join":[":",["-cidrIngress", {"Ref": "LambdaStage"} ]]}
         ]
         ]},
@@ -287,11 +285,11 @@
       "Type":"AWS::Lambda::Permission",
       "Properties":{
         "FunctionName":{"Fn::Join":["", [
-          { "Ref" : "LambdaArnBase" },
+          { "Fn::FindInMap" : [ "LambdaArn", "Base", "Segment"]},
           {"Fn::Join":[":",[
             {"Ref": "AWS::Region"},
             {"Ref": "AWS::AccountId"}]]},
-          {"Ref": "LambdaArnFunctionPrefix"},
+          { "Fn::FindInMap" : [ "LambdaArn", "FunctionPrefix", "Segment"]},
           {"Fn::Join":[":",["-cidrEgress", {"Ref": "LambdaStage"} ]]}
         ]
         ]},
