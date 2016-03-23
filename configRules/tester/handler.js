@@ -40,6 +40,7 @@ module.exports.handler = function (event, context) {
                     });
                     var testResult = nonCompliantCnt === 0 ? 'PASS' : 'FAIL';
                     responseData.result = testResult;
+                    responseData.timestamp = new Date().toISOString();
                     context.succeed(responseData);
                 }
             });
