@@ -11,7 +11,7 @@
 **Prerequisites**
 ```
 aws cli
-npm install --global serverless
+npm install --global serverless@0.4.2
 npm install --global gulp-cli
 
 ```
