@@ -29,7 +29,7 @@ npm install --global gulp-cli
 
 **Initialize the project:**
 ```
-==> gulp initProject --region us-east-1 --stage prod --name config-rule-status --bucket config-rule-status --awsProfile yourProfileName --email user@company.com
+==> gulp initProject --region us-east-1 --stage prod --name config-rule-status --awsProfile yourProfileName --email user@company.com
 ```
 
 ## Execution

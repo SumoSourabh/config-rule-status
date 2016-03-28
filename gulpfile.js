@@ -7,11 +7,10 @@ var argv = require('yargs').argv;
 var CFNRunner = require('./cfn/cfnRunner');
 
 gulp.task('initProject', shell.task(
-    ['serverless project init -n <%= argName %> -d <%= argBucket %>  -s <%= argStage %> -r <%= argRegion %> -p <%= argProfile %> -e <%= argEmail %>'],
+    ['serverless project init -n <%= argName %> -s <%= argStage %> -r <%= argRegion %> -p <%= argProfile %> -e <%= argEmail %>'],
     {
         "verbose": true, "interactive": true, "templateData": {
         argName: argv.name,
-        argBucket: argv.bucket,
         argStage: argv.stage,
         argRegion: argv.region,
         argProfile: argv.awsProfile,
