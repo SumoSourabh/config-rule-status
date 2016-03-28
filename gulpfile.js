@@ -67,7 +67,7 @@ gulp.task('testLocal', function () {
 });
 
 gulp.task('testDeployed', shell.task(
-    ['serverless function run tester -s <%= argStage %> -r <%= argRegion %>'],
+    ['serverless function run tester -s <%= argStage %> -r <%= argRegion %> -d -l'],
     {
         "verbose": true, "interactive": true, "templateData": {
         argStage: argv.stage,
