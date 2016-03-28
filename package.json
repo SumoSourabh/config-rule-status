@@ -4,8 +4,7 @@
   },
   "dependencies": {
     "cfn-config": "^0.8.5",
-    "serverless-jshint-plugin": "0.0.2",
-    "serverless-optimizer-plugin": "^1.0.0"
+    "serverless-optimizer-plugin": "^2.0.0"
   },
   "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
   "devDependencies": {

@@ -33,7 +33,7 @@ gulp.task('functionLogs', shell.task(
 gulp.task('deployLambdaFunctions', ['deployLambdaResources'], shell.task(
     ['serverless function deploy -s <%= argStage %> -r <%= argRegion %>'],
     {
-        "cwd": "./configRules", "verbose": true, "interactive": true, "templateData": {
+        "verbose": true, "interactive": true, "templateData": {
         argStage: argv.stage,
         argRegion: argv.region
     }, "errorMessage": "Command `<%= command %>` failed with: <%= error.message %>"
@@ -68,7 +68,7 @@ gulp.task('testLocal', function () {
 });
 
 gulp.task('testDeployed', shell.task(
-    ['serverless function run configRules/tester -s <%= argStage %> -r <%= argRegion %>'],
+    ['serverless function run tester -s <%= argStage %> -r <%= argRegion %>'],
     {
         "verbose": true, "interactive": true, "templateData": {
         argStage: argv.stage,

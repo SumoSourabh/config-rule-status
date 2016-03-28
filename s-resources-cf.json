@@ -32,20 +32,20 @@
           "Version": "2012-10-17",
           "Statement": [
             {
-              "Action":[
+              "Action": [
                 "iam:List*",
                 "iam:Get*",
                 "ec2:Describe*"
               ],
-              "Effect":"Allow",
-              "Resource":"*"
+              "Effect": "Allow",
+              "Resource": "*"
             },
             {
-              "Action":[
+              "Action": [
                 "config:*"
               ],
-              "Effect":"Allow",
-              "Resource":"*"
+              "Effect": "Allow",
+              "Resource": "*"
             },
             {
               "Effect": "Allow",

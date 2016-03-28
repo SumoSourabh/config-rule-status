@@ -1,9 +1,5 @@
 'use strict';
 
-// Require Serverless ENV vars
-var ServerlessHelpers = require('serverless-helpers-js').loadEnv();
-
-
 // Lambda Handler
 module.exports.handler = function (event, context) {
     var globLib = require('../lib/global');
