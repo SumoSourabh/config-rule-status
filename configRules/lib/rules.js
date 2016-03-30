@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports.getRules = function () {
     var globLib = require('./global');
@@ -33,15 +33,12 @@ module.exports.getRules = function () {
                     };
 
                     var compliance = "UNKNOWN";
-                    var err = undefined;
-
-                    var output = "none";
 
                     iam.listUserPolicies(params, function (err, data) {
                         var responseData = {};
                         if (err) {
                             responseData = {Error: 'listUserPolicies call failed'};
-                            err = responseData.Error + ':\n', err.code + ': ' + err.message;
+                            err = responseData.Error + ':\n' + err.code + ': ' + err.message;
                             console.error(err);
                         } 
                         else {
@@ -76,16 +73,16 @@ module.exports.getRules = function () {
                             console.info("compliance: " + compliance);
                             configurator.setConfig(compliance);
                         }
-                    })
+                    });
                 }
             }
         },
         "EC2": {
             "CidrIngress": {
                 test: function (secGrp, configurator) {
-                    var compliance = undefined;
+                    var compliance;
                     var nonCompCnt = 0;
-                    var cidrRangeRegex = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"
+                    var cidrRangeRegex = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$";
                     secGrp.IpPermissions.forEach(function (ipPerm) {
                         ipPerm.IpRanges.forEach(function (ipRange) {
                             //check if cidrIp is populated with a cidr or a security group
@@ -108,9 +105,9 @@ module.exports.getRules = function () {
             },
             "CidrEgress": {
                 test: function (secGrp, configurator) {
-                    var compliance = undefined;
+                    var compliance;
                     var nonCompCnt = 0;
-                    var cidrRangeRegex = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"
+                    var cidrRangeRegex = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$";
                     secGrp.IpPermissionsEgress.forEach(function (ipPerm) {
                         ipPerm.IpRanges.forEach(function (ipRange) {
                             //check if cidrIp is populated with a cidr or a security group
@@ -133,5 +130,5 @@ module.exports.getRules = function () {
             }
 
         }
-    }
+    };
 };

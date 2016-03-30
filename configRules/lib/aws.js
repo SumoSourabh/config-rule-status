@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var checkDefined = function (reference, referenceName) {
     if (!reference) {

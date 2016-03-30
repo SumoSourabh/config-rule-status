@@ -1,4 +1,5 @@
-'use strict'
+/* jshint unused: false */
+'use strict';
 
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");

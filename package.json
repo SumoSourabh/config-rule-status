@@ -3,17 +3,18 @@
     "name": "Dave Bettinger"
   },
   "dependencies": {
-    "cfn-config": "^0.8.5",
-    "serverless-optimizer-plugin": "^2.0.0"
+    "bluebird": "^3.3.4",
+    "serverless-optimizer-plugin": "^2.0.0",
+    "serverless-custom-resource-plugin": "stelligent/serverless-custom-resource-plugin.git#master"
   },
   "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
   "devDependencies": {
-    "bluebird": "^3.3.4",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
-    "gulp-shell": "^0.5.2",
+    "jshint": "^2.9.1",
     "mocha": "^2.4.5",
     "sinon": "^1.17.3",
     "yargs": "^4.3.1"
@@ -27,7 +28,7 @@
     "url": "git://github.com/stelligent/config-rule-status"
   },
   "scripts": {
-    "postInstall": "(cd configRules && npm install)"
+    "postinstall": "(cd configRules && npm install)"
   },
   "version": "0.0.1"
 }

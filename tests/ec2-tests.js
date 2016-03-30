@@ -1,4 +1,5 @@
-'use strict'
+/* jshint unused: false */
+'use strict';
 
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
@@ -30,8 +31,7 @@ describe('EC2/cidrIngress', function () {
                 {
                     message: 'The security group \'sg-111111\' does not exist',
                     code: 'InvalidGroup.NotFound',
-                }
-                , null);
+                }, null);
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-365fe04e\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
                 "ruleParameters": "{}",
@@ -154,8 +154,7 @@ describe('EC2/cidrEgress', function () {
                 {
                     message: 'The security group \'sg-111111\' does not exist',
                     code: 'InvalidGroup.NotFound',
-                }
-                , null);
+                }, null);
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-365fe04e\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
                 "ruleParameters": "{}",

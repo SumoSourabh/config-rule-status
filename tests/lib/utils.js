@@ -2,7 +2,7 @@
  * utility functions
  */
 
-'use strict'
+'use strict';
 
 module.exports = Utils;
 function Utils () {}
@@ -27,8 +27,7 @@ Utils.getAbsolutePath = function (path) {
 };
 
 Utils.outputJSON = function (json) {
-	console.log(typeof json === "object" ?
-		JSON.stringify(json, null, "\t") : json);
-}
+	console.log(typeof json === "object" ? JSON.stringify(json, null, "\t") : json);
+};
 
 

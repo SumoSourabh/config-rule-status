@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 function guid() {
     function s4() {
@@ -42,11 +42,11 @@ module.exports = function(lambdaName, cb) {
             }
         }
         cb(null, result);
-    }
+    };
     return {
         awsRequestId: id,
         invokeid: id,
-        logGroupName: `/aws/lambda/${name}`,
+        logGroupName: '/aws/lambda/' + name,
         logStreamName: '2015/09/22/[HEAD]13370a84ca4ed8b77c427af260',
         functionVersion: 'HEAD',
         isDefaultFunctionVersion: true,
@@ -61,5 +61,5 @@ module.exports = function(lambdaName, cb) {
         getRemainingTimeInMillis: function() {
             return 5000;
         }
-    }
+    };
 };

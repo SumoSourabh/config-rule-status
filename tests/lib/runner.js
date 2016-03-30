@@ -1,7 +1,8 @@
 'use strict';
 
 var utils = require('./utils');
-var context = require('./context.js');
+var ctx = require('./context.js');
+var BbPromise = require('bluebird');
 
 module.exports.lambdaRunner = function (func, evt) {
     var lambdaPath = func + '/handler.js';
@@ -12,9 +13,9 @@ module.exports.lambdaRunner = function (func, evt) {
     var _event = evt;
 
     // create Promise wrapper for the lambda function
-    var p = new Promise(function(resolve){
+    var p = new BbPromise(function(resolve){
         try {
-            lambdaFunc[lambdaHandler](_event, context(lambdaPath, function(err, result){
+            lambdaFunc[lambdaHandler](_event, ctx(lambdaPath, function(err, result){
                 // Show error
                 if (err) {
                     //console.error("Err: "+ utils.outputJSON(err));
@@ -36,5 +37,5 @@ module.exports.lambdaRunner = function (func, evt) {
     });
 
     return p;
-}
+};
 

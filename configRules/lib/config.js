@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.configurator = function (event, context, config, configurationItem) {
     this.event = event;
     this.context = context;
@@ -25,5 +27,5 @@ module.exports.configurator = function (event, context, config, configurationIte
                 ctx.succeed(data);
             }
         });
-    }
+    };
 };

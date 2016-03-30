@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports.getFunctions = function () {
     var globLib = require('./global');
@@ -29,5 +29,5 @@ module.exports.getFunctions = function () {
                 }
             });
         }
-    }
+    };
 };

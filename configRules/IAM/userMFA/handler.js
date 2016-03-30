@@ -2,7 +2,6 @@
 
 /**
  * Serverless Module: Lambda Handler
- * - 'serverless-helpers-js' module is required for Serverless ENV var support.
  */
 
 // Require Logic

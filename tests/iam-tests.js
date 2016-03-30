@@ -1,4 +1,5 @@
-'use strict'
+/* jshint unused: false */
+'use strict';
 
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
@@ -33,8 +34,7 @@ describe('IAM/userInlinePolicy', function () {
                 {
                     message: 'The user with name dave.bettinger.foo cannot be found.',
                     code: 'NoSuchEntity',
-                }
-                , null);
+                }, null);
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"null\",\"resourceType\":\"AWS::IAM::User\",\"tags\":{},\"relationships\":[],\"configuration\":{\"userName\":\"dave.bettinger.goldbase\"}}}",
                 "ruleParameters": "{}",
@@ -119,8 +119,7 @@ describe('IAM/userManagedPolicy', function () {
                 {
                     message: 'The user with name dave.bettinger.foo cannot be found.',
                     code: 'NoSuchEntity',
-                }
-                , null);
+                }, null);
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"null\",\"resourceType\":\"AWS::IAM::User\",\"tags\":{},\"relationships\":[],\"configuration\":{\"userName\":\"dave.bettinger.goldbase\"}}}",
                 "ruleParameters": "{}",

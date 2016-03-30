@@ -13,7 +13,7 @@ module.exports.handler = function (event, context) {
             console.error(responseData.Error + ':\n', err.code + ': ' + err.message);
             return context.fail(err);
         } else {
-            var ruleNames = data.ConfigRules.map(function(el, idx, arr){
+            var ruleNames = data.ConfigRules.map(function(el){
                 return el.ConfigRuleName;
             });
             configService.describeComplianceByConfigRule({"ConfigRuleNames": ruleNames}, function(err, data){
@@ -24,14 +24,14 @@ module.exports.handler = function (event, context) {
                 } else {
                     //get the overall result
                     responseData = {"result": "UKNOWN", "results": []};
-                    var nonCompliantCnt = data.ComplianceByConfigRules.map(function(el, idx, arr){
+                    var nonCompliantCnt = data.ComplianceByConfigRules.map(function(el, idx){
                         responseData.results[idx] = {
                             "rule": el.ConfigRuleName,
                             "status": el.Compliance.ComplianceType,
                             "result": el.Compliance.ComplianceType === 'COMPLIANT' ? 'PASS' : 'FAIL'
-                        }
+                        };
                         return el.Compliance.ComplianceType === 'COMPLIANT' ? 0 : 1;
-                    }).reduce(function(pv, cv, cIdx){
+                    }).reduce(function(pv, cv){
                         return pv + cv;
                     });
                     var testResult = nonCompliantCnt === 0 ? 'PASS' : 'FAIL';
