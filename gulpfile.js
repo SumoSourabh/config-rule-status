@@ -6,7 +6,48 @@ var gulpMocha = require('gulp-mocha');
 var jshint = require('gulp-jshint');
 var argv = require('yargs').argv;
 var spawn = require('child_process').spawn;
+var del = require('del');
 
+var options = {
+    project:{
+        init: ['project', 'init', '-n', argv.name, '-p', argv.awsProfile, '-e', argv.email, '-s', argv.stage, '-r', argv.region ]
+    },
+    function: {
+        deploy: ['function', 'deploy', '-s', argv.stage, '-r', argv.region ],
+        run: ['function', 'run', 'tester', '-s', argv.stage, '-r', argv.region ],
+        log: ['function', 'logs', argv.name, '-s', argv.stage, '-r', argv.region ]
+    },
+    resources: {
+        deploy: ['resources', 'deploy', '-s', argv.stage, '-r', argv.region ],
+        remove: ['resources', 'remove', '-s', argv.stage, '-r', argv.region ]
+    },
+    configServiceResources: {
+        deploy: ['synchronousResources', 'deploy', '-t', 'otherResources/config-service-resources.json', '-r', argv.region ],
+        remove: ['synchronousResources', 'remove', '-t', 'otherResources/config-service-resources.json', '-r', argv.region ]
+    },
+    configRuleResources: {
+        deploy: ['synchronousResources', 'deploy', '-t', 'otherResources/config-rule-resources.json', '-r', argv.region ],
+        remove: ['synchronousResources', 'remove', '-t', 'otherResources/config-rule-resources.json', '-r', argv.region ]
+    }
+};
+
+function _lookupCmd(component, action){
+    return options[component][action];
+}
+
+function _runServerless(component, action, callback){
+    var cmd = _lookupCmd(component, action);
+    var sls = spawn('serverless', cmd, {stdio: 'inherit'});
+    sls.on('close', function (code) {
+        callback(code);
+    });
+}
+
+gulp.task('clean:meta', function () {
+    return del([
+        '_meta'
+    ]);
+});
 
 gulp.task('lint', function() {
     return gulp.src(['**/*.js','!node_modules/**', '!configRules/node_modules/**'])
@@ -14,95 +55,55 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('initProject', function (callback) {
-    var sls = spawn('serverless', ['project', 'init', '-n', argv.name, '-p', argv.awsProfile, '-e', argv.email, '-s', argv.stage, '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('init', function (callback) {
+    _runServerless('project', 'init', callback);
 });
 
-gulp.task('functionLogs', function (callback) {
-    var sls = spawn('serverless', ['function', 'logs', argv.name, '-s', argv.stage, '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('logs', function (callback) {
+    _runServerless('function', 'logs', callback);
 });
 
-gulp.task('deployLambdaFunctions', function (callback) {
-    var sls = spawn('serverless', ['function', 'deploy', '-s', argv.stage, '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('deploy:LambdaFunctions', ['deploy:LambdaResources'], function (callback) {
+    _runServerless('function', 'deploy', callback);
 });
 
-gulp.task('deployLambdaResources', function (callback) {
-    var sls = spawn('serverless', ['resources', 'deploy', '-s', argv.stage, '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('deploy:LambdaResources', function (callback) {
+    _runServerless('resources', 'deploy', callback);
 });
 
-gulp.task('removeLambdaResources', function (callback) {
-    var sls = spawn('serverless', ['resources', 'remove', '-s', argv.stage, '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('remove:LambdaResources', function (callback) {
+    _runServerless('resources', 'remove', callback);
 });
 
-gulp.task('testLocal', ['lint'], function () {
+gulp.task('test:local', ['lint'], function () {
     return gulp.src(['tests/*-tests.js'], {read: false})
         .pipe(gulpMocha({
             reporter: 'spec'
         }));
 });
 
-gulp.task('testDeployed', function (callback) {
-    var sls = spawn('serverless', ['function', 'run', 'tester', '-s', argv.stage, '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('test:deployed', function (callback) {
+    _runServerless('function', 'run', callback);
 });
 
-gulp.task('deployConfigServiceResources', function (callback) {
-    var sls = spawn('serverless', ['customResources', 'deploy', '-t', 'customResources/config-service-resources.json', '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('deploy:ConfigServiceResources', function (callback) {
+    _runServerless('configServiceResources', 'deploy', callback);
 });
 
-gulp.task('removeConfigServiceResources', function (callback) {
-    var sls = spawn('serverless', ['customResources', 'remove', '-t', 'customResources/config-service-resources.json', '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('remove:ConfigServiceResources', function (callback) {
+    _runServerless('configServiceResources', 'remove', callback);
 });
 
-gulp.task('deployConfigRuleResources', ['deployConfigServiceResources'], function (callback) {
-    var sls = spawn('serverless', ['customResources', 'deploy', '-t', 'customResources/config-rule-resources.json', '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('deploy:ConfigRuleResources', ['deploy:ConfigServiceResources'], function (callback) {
+    _runServerless('configRuleResources', 'deploy', callback);
 });
 
-gulp.task('removeConfigRuleResources', function (callback) {
-    var sls = spawn('serverless', ['customResources', 'remove', '-t', 'customResources/config-rule-resources.json', '-r', argv.region ], {stdio: 'inherit'});
-    sls.on('close', function (code) {
-        //console.log('child process exited with code ' + code);
-        callback();
-    });
+gulp.task('remove:ConfigRuleResources', function (callback) {
+    _runServerless('configRuleResources', 'remove', callback);
 });
 
-gulp.task('deployLambda', ['lint', 'testLocal', 'deployLambdaResources', 'deployLambdaFunctions']);
+gulp.task('deploy:lambda', ['lint', 'test:local', 'deploy:LambdaResources', 'deploy:LambdaFunctions']);
 
-gulp.task('deployConfig', ['lint', 'testLocal', 'deployConfigServiceResources', 'deployConfigRuleResources']);
+gulp.task('deploy:config', ['lint', 'test:local', 'deploy:ConfigServiceResources', 'deploy:ConfigRuleResources']);
 
-gulp.task('removeConfig', ['removeConfigServiceResources', 'removeConfigRuleResources']);
+gulp.task('remove:config', ['remove:ConfigServiceResources', 'remove:ConfigRuleResources']);

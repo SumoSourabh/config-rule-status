@@ -5,12 +5,13 @@
   "dependencies": {
     "bluebird": "^3.3.4",
     "serverless-optimizer-plugin": "^2.0.0",
-    "serverless-custom-resource-plugin": "stelligent/serverless-synchronous-resource-plugin.git#master"
+    "serverless-synchronous-resource-plugin": "stelligent/serverless-synchronous-resource-plugin.git#master"
   },
   "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.0",
     "gulp-mocha": "^2.2.0",

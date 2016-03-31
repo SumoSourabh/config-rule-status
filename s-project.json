@@ -8,6 +8,6 @@
   "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
   "plugins": [
     "serverless-optimizer-plugin",
-    "serverless-custom-resource-plugin"
+    "serverless-synchronous-resource-plugin"
   ]
 }

@@ -29,30 +29,30 @@ npm install --global gulp-cli
 
 **Initialize the project:**
 ```
-==> gulp initProject --region us-east-1 --stage prod --name config-rule-status --awsProfile yourProfileName --email user@company.com
+==> gulp init --region us-east-1 --stage prod --name config-rule-status --awsProfile yourProfileName --email user@company.com
 ```
 
 ## Execution
 
 **Run Tests**
 ```
-==> gulp testLocal
+==> gulp test:local
 ```
 
 **Deploy to AWS**
 ```
-==> gulp deployLambda --stage prod --region us-east-1
-==> gulp deployConfig --stage prod --region us-east-1
+==> gulp deploy:lambda --stage prod --region us-east-1
+==> gulp deploy:config --stage prod --region us-east-1
 ```
 
 **Verify Deploy and/or Integrate into a CD pipeline**
 ```
-==> gulp testDeployed --stage prod --region us-east-1
+==> gulp test:deployed --stage prod --region us-east-1
 ```
 
 **View Lambda logs**
 ```
-==> gulp functionLogs --stage prod --region us-east-1 --functionName EC2/cidrIngress
+==> gulp logs --stage prod --region us-east-1 --functionName EC2/cidrIngress
 ```
 
 ## Modifying
