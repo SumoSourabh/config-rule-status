@@ -15,7 +15,7 @@ var options = {
     function: {
         deploy: ['function', 'deploy', '-s', argv.stage, '-r', argv.region ],
         run: ['function', 'run', 'tester', '-s', argv.stage, '-r', argv.region ],
-        log: ['function', 'logs', argv.name, '-s', argv.stage, '-r', argv.region ]
+        logs: ['function', 'logs', argv.name, '-d', argv.duration, '-s', argv.stage, '-r', argv.region ]
     },
     resources: {
         deploy: ['resources', 'deploy', '-s', argv.stage, '-r', argv.region ],

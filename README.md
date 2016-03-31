@@ -2,7 +2,7 @@
 
 ## What it Does
 - Setup resource monitoring using AWS Config.
-- Create security compliance rules using AWS Config Rules, include both AWS-managed and custom rules.
+- Create security compliance rules using AWS Config Rules, including both AWS-managed and custom rules.
 - Create AWS Lambda functions that implement infrastructure security tests (for the custom rules).
 - Create an AWS Lambda function to aggregate the Config Rule compliance statuses and return an overall "PASS" or "FAIL".  This function is designed to be used as a Security Integration Test as part of a CD pipeline.
 - Provide a CLI (via gulp) for creating and updating the associated resources in AWS.
@@ -52,7 +52,7 @@ npm install --global gulp-cli
 
 **View Lambda logs**
 ```
-==> gulp logs --stage prod --region us-east-1 --functionName EC2/cidrIngress
+==> gulp logs --stage prod --region us-east-1 --functionName cidrIngress --duration 1d
 ```
 
 ## Modifying
