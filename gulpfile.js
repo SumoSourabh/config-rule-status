@@ -88,11 +88,11 @@ gulp.task('logs', function (callback) {
     _runServerless('function', 'logs', callback);
 });
 
-gulp.task('deploy:LambdaFunctions', ['deploy:LambdaResources'], function (callback) {
+gulp.task('deploy:LambdaFunctions', ['build', 'deploy:LambdaResources'], function (callback) {
     _runServerless('function', 'deploy', callback);
 });
 
-gulp.task('deploy:LambdaResources', function (callback) {
+gulp.task('deploy:LambdaResources', ['build'], function (callback) {
     _runServerless('resources', 'deploy', callback);
 });
 
@@ -106,7 +106,7 @@ gulp.task('test:local', ['copy:lib'], function () {
             .pipe(gulpMocha({
                 reporter: 'spec'
             }));
-    },800);
+    },100);
 });
 
 gulp.task('test:deployed', function (callback) {
@@ -131,8 +131,8 @@ gulp.task('remove:ConfigRuleResources', function (callback) {
 
 gulp.task('build', ['clean:lib', 'lint', 'copy:lib', 'test:local']);
 
-gulp.task('deploy:lambda', ['lint', 'test:local', 'deploy:LambdaResources', 'deploy:LambdaFunctions']);
+gulp.task('deploy:lambda', ['build', 'deploy:LambdaResources', 'deploy:LambdaFunctions']);
 
-gulp.task('deploy:config', ['lint', 'test:local', 'deploy:ConfigServiceResources', 'deploy:ConfigRuleResources']);
+gulp.task('deploy:config', ['deploy:ConfigServiceResources', 'deploy:ConfigRuleResources']);
 
 gulp.task('remove:config', ['remove:ConfigServiceResources', 'remove:ConfigRuleResources']);
