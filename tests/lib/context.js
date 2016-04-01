@@ -27,14 +27,14 @@ module.exports = function(lambdaName, cb) {
     
     var done = function(error, result){
         if (error !== null){
-            if (error.message.startsWith("Result Token provided is invalid")){
+            if (error.message.startsWith('Result Token provided is invalid')){
 
                 // This error is expected to be thrown by Config.putEvaluations, because the
                 //stubbed event used for testing has a fake result token.
                 // This error actually indicates a successful test run.  At this point the error
                 //object will contain the compliance key, so it is assigned to result for inspection.
 
-                //console.error("Token error...getting compliance from error object...:" + error);
+                //console.error('Token error...getting compliance from error object...:' + error);
                 result = error;
             }
             else {

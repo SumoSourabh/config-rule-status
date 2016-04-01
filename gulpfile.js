@@ -7,6 +7,16 @@ var jshint = require('gulp-jshint');
 var argv = require('yargs').argv;
 var spawn = require('child_process').spawn;
 var del = require('del');
+var multistream = require('gulp-multistream');
+
+var functionDirs = [
+    'configRules/EC2/cidrEgress',
+    'configRules/EC2/cidrIngress',
+    'configRules/IAM/userInlinePolicy',
+    'configRules/IAM/userMFA',
+    'configRules/IAM/userManagedPolicy',
+    'configRules/tester'
+];
 
 var options = {
     project:{
@@ -49,7 +59,22 @@ gulp.task('clean:meta', function () {
     ]);
 });
 
-gulp.task('lint', function() {
+gulp.task('clean:lib', function () {
+    return del([
+        '**/distLib'
+    ]);
+});
+
+gulp.task('copy:lib', ['lint'], function (cb) {
+    var destinations = [];
+    var cnt = 0;
+    functionDirs.forEach(function(dir){
+        destinations.push(gulp.dest('./' + dir + '/distLib'));
+    });
+    return gulp.src('./configRules/lib/*.js').pipe(multistream.apply(undefined, destinations));
+});
+
+gulp.task('lint', ['clean:lib'], function() {
     return gulp.src(['**/*.js','!node_modules/**', '!configRules/node_modules/**'])
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
@@ -75,11 +100,13 @@ gulp.task('remove:LambdaResources', function (callback) {
     _runServerless('resources', 'remove', callback);
 });
 
-gulp.task('test:local', ['lint'], function () {
-    return gulp.src(['tests/*-tests.js'], {read: false})
-        .pipe(gulpMocha({
-            reporter: 'spec'
-        }));
+gulp.task('test:local', ['copy:lib'], function () {
+    setTimeout(function(){
+        return gulp.src(['tests/*-tests.js'], {read: false})
+            .pipe(gulpMocha({
+                reporter: 'spec'
+            }));
+    },800);
 });
 
 gulp.task('test:deployed', function (callback) {
@@ -101,6 +128,8 @@ gulp.task('deploy:ConfigRuleResources', ['deploy:ConfigServiceResources'], funct
 gulp.task('remove:ConfigRuleResources', function (callback) {
     _runServerless('configRuleResources', 'remove', callback);
 });
+
+gulp.task('build', ['clean:lib', 'lint', 'copy:lib', 'test:local']);
 
 gulp.task('deploy:lambda', ['lint', 'test:local', 'deploy:LambdaResources', 'deploy:LambdaFunctions']);
 

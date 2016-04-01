@@ -8,7 +8,7 @@ module.exports.getFunctions = function () {
     return {
         evaluateEC2SecurityGroup: function (event, context, configurationItem, rule) {
             var params = {
-                "GroupIds": [configurationItem.resourceId]
+                'GroupIds': [configurationItem.resourceId]
             };
             ec2.describeSecurityGroups(params, function (err, data) {
                 var responseData = {};

@@ -8,7 +8,7 @@ module.exports.getFunctions = function () {
     return {
         evaluateIAMUser: function (event, context, configurationItem, rule) {
             var params = {
-                "UserName": configurationItem.configuration.userName
+                'UserName': configurationItem.configuration.userName
             };
             iam.getUser(params, function (err, data) {
                 var responseData = {};
@@ -25,7 +25,7 @@ module.exports.getFunctions = function () {
         },
         evaluateIAMPolicy: function (event, context, configurationItem, rule) {
             var params = {
-                "PolicyArn": configurationItem.ARN
+                'PolicyArn': configurationItem.ARN
             };
             iam.getPolicy(params, function (err, data) {
                 var responseData = {};

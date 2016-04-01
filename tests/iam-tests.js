@@ -1,16 +1,16 @@
-/* jshint unused: false */
+/* jshint unused: false, quotmark: false */
 'use strict';
 
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
 var expect = chai.expect;
 var sinon = require('sinon');
 var lambdaRunner = require('./lib/runner.js').lambdaRunner;
-var globLib = require('../configRules/lib/global');
 
 chai.use(chaiAsPromised);
 
 describe('IAM/userInlinePolicy', function () {
+    var globLib = require('../configRules/IAM/userInlinePolicy/distLib/global');
     var userStub;
     var userPoliciesStub;
 
@@ -42,7 +42,7 @@ describe('IAM/userInlinePolicy', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/IAM/userInlinePolicy', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("code", "NoSuchEntity");
+            return expect(lambdaResult).to.eventually.have.deep.property('code', 'NoSuchEntity');
 
 
 
@@ -53,10 +53,10 @@ describe('IAM/userInlinePolicy', function () {
     it('should be COMPLIANT',
         function () {
             userStub.yields(null, {
-                "User": {"UserName": "dave.bettinger.goldbase"}
+                'User': {'UserName': 'dave.bettinger.goldbase'}
             });
             userPoliciesStub.yields(null, {
-                "PolicyNames": []
+                'PolicyNames': []
             });
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"null\",\"resourceType\":\"AWS::IAM::User\",\"tags\":{},\"relationships\":[],\"configuration\":{\"userName\":\"dave.bettinger.goldbase\"}}}",
@@ -65,18 +65,18 @@ describe('IAM/userInlinePolicy', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/IAM/userInlinePolicy', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("compliance", "COMPLIANT");
+            return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'COMPLIANT');
         }
     );
 
     it('should be NON_COMPLIANT',
         function () {
             userStub.yields(null, {
-                "User": {"UserName": "test.user"}
+                'User': {'UserName': 'test.user'}
             });
             userPoliciesStub.yields(null, {
-                "PolicyNames": [
-                    "policygen-test.user-201603141400"
+                'PolicyNames': [
+                    'policygen-test.user-201603141400'
                 ]
             });
             var event = {
@@ -86,7 +86,7 @@ describe('IAM/userInlinePolicy', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/IAM/userInlinePolicy', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("compliance", "NON_COMPLIANT");
+            return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'NON_COMPLIANT');
 
         }
     );
@@ -96,6 +96,7 @@ describe('IAM/userInlinePolicy', function () {
 
 
 describe('IAM/userManagedPolicy', function () {
+    var globLib = require('../configRules/IAM/userManagedPolicy/distLib/global');
     var userStub;
     var userPoliciesStub;
 
@@ -127,7 +128,7 @@ describe('IAM/userManagedPolicy', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/IAM/userManagedPolicy', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("code", "NoSuchEntity");
+            return expect(lambdaResult).to.eventually.have.deep.property('code', 'NoSuchEntity');
 
 
         }
@@ -137,10 +138,10 @@ describe('IAM/userManagedPolicy', function () {
     it('should be COMPLIANT',
         function () {
             userStub.yields(null, {
-                "User": {"UserName": "dave.bettinger.goldbase"}
+                'User': {'UserName': 'dave.bettinger.goldbase'}
             });
             userPoliciesStub.yields(null, {
-                "AttachedPolicies": []
+                'AttachedPolicies': []
 
             });
             var event = {
@@ -150,20 +151,20 @@ describe('IAM/userManagedPolicy', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/IAM/userManagedPolicy', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("compliance", "COMPLIANT");
+            return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'COMPLIANT');
         }
     );
 
     it('should be NON_COMPLIANT',
         function () {
             userStub.yields(null, {
-                "User": {"UserName": "test.user"}
+                'User': {'UserName': 'test.user'}
             });
             userPoliciesStub.yields(null, {
-                "AttachedPolicies": [
+                'AttachedPolicies': [
                     {
-                        "PolicyName": "AmazonS3ReadOnlyAccess",
-                        "PolicyArn": "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+                        'PolicyName': 'AmazonS3ReadOnlyAccess',
+                        'PolicyArn': 'arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess'
                     }
                 ]
             });
@@ -174,7 +175,7 @@ describe('IAM/userManagedPolicy', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/IAM/userManagedPolicy', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("compliance", "NON_COMPLIANT");
+            return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'NON_COMPLIANT');
 
         }
     );

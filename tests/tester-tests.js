@@ -1,16 +1,16 @@
 /* jshint unused: false */
 'use strict';
 
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
 var expect = chai.expect;
 var sinon = require('sinon');
 var lambdaRunner = require('./lib/runner.js').lambdaRunner;
-var globLib = require('../configRules/lib/global');
 
 chai.use(chaiAsPromised);
 
 describe('tester', function () {
+    var globLib = require('../configRules/tester/distLib/global');
     var configRulesStub;
     var configRulesComplianceStub;
 
@@ -32,23 +32,23 @@ describe('tester', function () {
         function () {
             configRulesStub.yields(null,
                 {
-                    "ConfigRules": [
-                        {"ConfigRuleName": "rule1"},
-                        {"ConfigRuleName": "rule2"},
-                        {"ConfigRuleName": "rule3"}
+                    'ConfigRules': [
+                        {'ConfigRuleName': 'rule1'},
+                        {'ConfigRuleName': 'rule2'},
+                        {'ConfigRuleName': 'rule3'}
                     ]
                 });
             configRulesComplianceStub.yields(null,
                 {
-                    "ComplianceByConfigRules": [
-                        {"ConfigRuleName": "rule1", "Compliance":{ "ComplianceType": "COMPLIANT"}},
-                        {"ConfigRuleName": "rule2", "Compliance":{ "ComplianceType": "COMPLIANT"}},
-                        {"ConfigRuleName": "rule3", "Compliance":{ "ComplianceType": "COMPLIANT"}}
+                    'ComplianceByConfigRules': [
+                        {'ConfigRuleName': 'rule1', 'Compliance':{ 'ComplianceType': 'COMPLIANT'}},
+                        {'ConfigRuleName': 'rule2', 'Compliance':{ 'ComplianceType': 'COMPLIANT'}},
+                        {'ConfigRuleName': 'rule3', 'Compliance':{ 'ComplianceType': 'COMPLIANT'}}
                     ]
                 });
             var event = {};
             var lambdaResult = lambdaRunner('configRules/tester', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("result", "PASS");
+            return expect(lambdaResult).to.eventually.have.deep.property('result', 'PASS');
 
 
         }
@@ -59,23 +59,23 @@ describe('tester', function () {
         function () {
             configRulesStub.yields(null,
                 {
-                    "ConfigRules": [
-                        {"ConfigRuleName": "rule1"},
-                        {"ConfigRuleName": "rule2"},
-                        {"ConfigRuleName": "rule3"}
+                    'ConfigRules': [
+                        {'ConfigRuleName': 'rule1'},
+                        {'ConfigRuleName': 'rule2'},
+                        {'ConfigRuleName': 'rule3'}
                     ]
                 });
             configRulesComplianceStub.yields(null,
                 {
-                    "ComplianceByConfigRules": [
-                        {"ConfigRuleName": "rule1", "Compliance":{ "ComplianceType": "COMPLIANT"}},
-                        {"ConfigRuleName": "rule2", "Compliance":{ "ComplianceType": "NON_COMPLIANT"}},
-                        {"ConfigRuleName": "rule3", "Compliance":{ "ComplianceType": "COMPLIANT"}}
+                    'ComplianceByConfigRules': [
+                        {'ConfigRuleName': 'rule1', 'Compliance':{ 'ComplianceType': 'COMPLIANT'}},
+                        {'ConfigRuleName': 'rule2', 'Compliance':{ 'ComplianceType': 'NON_COMPLIANT'}},
+                        {'ConfigRuleName': 'rule3', 'Compliance':{ 'ComplianceType': 'COMPLIANT'}}
                     ]
                 });
             var event = {};
             var lambdaResult = lambdaRunner('configRules/tester', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("result", "FAIL");
+            return expect(lambdaResult).to.eventually.have.deep.property('result', 'FAIL');
         }
     );
 });

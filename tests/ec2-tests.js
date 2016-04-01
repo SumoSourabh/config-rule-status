@@ -1,16 +1,17 @@
-/* jshint unused: false */
+/* jshint unused: false, quotmark: false */
 'use strict';
 
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
 var expect = chai.expect;
 var sinon = require('sinon');
 var lambdaRunner = require('./lib/runner.js').lambdaRunner;
-var globLib = require('../configRules/lib/global');
+
 
 chai.use(chaiAsPromised);
 
 describe('EC2/cidrIngress', function () {
+    var globLib = require('../configRules/EC2/cidrIngress/distLib/global');
     var secGrpStub;
 
     beforeEach(function () {
@@ -39,7 +40,7 @@ describe('EC2/cidrIngress', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/EC2/cidrIngress', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("code", "InvalidGroup.NotFound");
+            return expect(lambdaResult).to.eventually.have.deep.property('code', 'InvalidGroup.NotFound');
 
         }
     );
@@ -47,26 +48,26 @@ describe('EC2/cidrIngress', function () {
     it('should be COMPLIANT',
         function () {
             secGrpStub.yields(null, {
-                "SecurityGroups": [
+                'SecurityGroups': [
                     {
-                        "IpPermissionsEgress": [
+                        'IpPermissionsEgress': [
                             {
-                                "IpProtocol": "-1",
-                                "IpRanges": [
+                                'IpProtocol': '-1',
+                                'IpRanges': [
                                     {
-                                        "CidrIp": "0.0.0.0/0"
+                                        'CidrIp': '0.0.0.0/0'
                                     }
                                 ],
-                                "UserIdGroupPairs": [],
-                                "PrefixListIds": []
+                                'UserIdGroupPairs': [],
+                                'PrefixListIds': []
                             }
                         ],
-                        "Description": "launch-wizard-1 created 2016-03-10T10:51:56.616-05:00",
-                        "IpPermissions": [],
-                        "GroupName": "launch-wizard-1",
-                        "VpcId": "vpc-f399e097",
-                        "OwnerId": "592804526322",
-                        "GroupId": "sg-ed58dd95"
+                        'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
+                        'IpPermissions': [],
+                        'GroupName': 'launch-wizard-1',
+                        'VpcId': 'vpc-f399e097',
+                        'OwnerId': '592804526322',
+                        'GroupId': 'sg-ed58dd95'
                     }
                 ]
             });
@@ -77,46 +78,46 @@ describe('EC2/cidrIngress', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/EC2/cidrIngress', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("compliance", "COMPLIANT");
+            return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'COMPLIANT');
         }
     );
 
     it('should be NON_COMPLIANT',
         function () {
             secGrpStub.yields(null, {
-                "SecurityGroups": [
+                'SecurityGroups': [
                     {
-                        "IpPermissionsEgress": [
+                        'IpPermissionsEgress': [
                             {
-                                "IpProtocol": "-1",
-                                "IpRanges": [
+                                'IpProtocol': '-1',
+                                'IpRanges': [
                                     {
-                                        "CidrIp": "0.0.0.0/0"
+                                        'CidrIp': '0.0.0.0/0'
                                     }
                                 ],
-                                "UserIdGroupPairs": [],
-                                "PrefixListIds": []
+                                'UserIdGroupPairs': [],
+                                'PrefixListIds': []
                             }
                         ],
-                        "Description": "launch-wizard-1 created 2016-03-10T10:51:56.616-05:00",
-                        "IpPermissions": [
+                        'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
+                        'IpPermissions': [
                             {
-                                "PrefixListIds": [],
-                                "FromPort": 22,
-                                "IpRanges": [
+                                'PrefixListIds': [],
+                                'FromPort': 22,
+                                'IpRanges': [
                                     {
-                                        "CidrIp": "0.0.0.0/0"
+                                        'CidrIp': '0.0.0.0/0'
                                     }
                                 ],
-                                "ToPort": 22,
-                                "IpProtocol": "tcp",
-                                "UserIdGroupPairs": []
+                                'ToPort': 22,
+                                'IpProtocol': 'tcp',
+                                'UserIdGroupPairs': []
                             }
                         ],
-                        "GroupName": "launch-wizard-1",
-                        "VpcId": "vpc-f399e097",
-                        "OwnerId": "592804526322",
-                        "GroupId": "sg-ed58dd95"
+                        'GroupName': 'launch-wizard-1',
+                        'VpcId': 'vpc-f399e097',
+                        'OwnerId': '592804526322',
+                        'GroupId': 'sg-ed58dd95'
                     }
                 ]
             });
@@ -127,13 +128,14 @@ describe('EC2/cidrIngress', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/EC2/cidrIngress', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("compliance", "NON_COMPLIANT");
+            return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'NON_COMPLIANT');
         }
     );
 
 });
 
 describe('EC2/cidrEgress', function () {
+    var globLib = require('../configRules/EC2/cidrEgress/distLib/global');
     var secGrpStub;
 
     beforeEach(function () {
@@ -162,7 +164,7 @@ describe('EC2/cidrEgress', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/EC2/cidrEgress', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("code", "InvalidGroup.NotFound");
+            return expect(lambdaResult).to.eventually.have.deep.property('code', 'InvalidGroup.NotFound');
 
         }
     );
@@ -170,15 +172,15 @@ describe('EC2/cidrEgress', function () {
     it('should be COMPLIANT',
         function () {
             secGrpStub.yields(null, {
-                "SecurityGroups": [
+                'SecurityGroups': [
                     {
-                        "IpPermissionsEgress": [],
-                        "Description": "launch-wizard-1 created 2016-03-10T10:51:56.616-05:00",
-                        "IpPermissions": [],
-                        "GroupName": "launch-wizard-1",
-                        "VpcId": "vpc-f399e097",
-                        "OwnerId": "592804526322",
-                        "GroupId": "sg-ed58dd95"
+                        'IpPermissionsEgress': [],
+                        'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
+                        'IpPermissions': [],
+                        'GroupName': 'launch-wizard-1',
+                        'VpcId': 'vpc-f399e097',
+                        'OwnerId': '592804526322',
+                        'GroupId': 'sg-ed58dd95'
                     }
                 ]
             });
@@ -189,46 +191,46 @@ describe('EC2/cidrEgress', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/EC2/cidrEgress', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("compliance", "COMPLIANT");
+            return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'COMPLIANT');
         }
     );
 
     it('should be NON_COMPLIANT',
         function () {
             secGrpStub.yields(null, {
-                "SecurityGroups": [
+                'SecurityGroups': [
                     {
-                        "IpPermissionsEgress": [
+                        'IpPermissionsEgress': [
                             {
-                                "IpProtocol": "-1",
-                                "IpRanges": [
+                                'IpProtocol': '-1',
+                                'IpRanges': [
                                     {
-                                        "CidrIp": "0.0.0.0/0"
+                                        'CidrIp': '0.0.0.0/0'
                                     }
                                 ],
-                                "UserIdGroupPairs": [],
-                                "PrefixListIds": []
+                                'UserIdGroupPairs': [],
+                                'PrefixListIds': []
                             }
                         ],
-                        "Description": "launch-wizard-1 created 2016-03-10T10:51:56.616-05:00",
-                        "IpPermissions": [
+                        'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
+                        'IpPermissions': [
                             {
-                                "PrefixListIds": [],
-                                "FromPort": 22,
-                                "IpRanges": [
+                                'PrefixListIds': [],
+                                'FromPort': 22,
+                                'IpRanges': [
                                     {
-                                        "CidrIp": "0.0.0.0/0"
+                                        'CidrIp': '0.0.0.0/0'
                                     }
                                 ],
-                                "ToPort": 22,
-                                "IpProtocol": "tcp",
-                                "UserIdGroupPairs": []
+                                'ToPort': 22,
+                                'IpProtocol': 'tcp',
+                                'UserIdGroupPairs': []
                             }
                         ],
-                        "GroupName": "launch-wizard-1",
-                        "VpcId": "vpc-f399e097",
-                        "OwnerId": "592804526322",
-                        "GroupId": "sg-ed58dd95"
+                        'GroupName': 'launch-wizard-1',
+                        'VpcId': 'vpc-f399e097',
+                        'OwnerId': '592804526322',
+                        'GroupId': 'sg-ed58dd95'
                     }
                 ]
             });
@@ -239,7 +241,7 @@ describe('EC2/cidrEgress', function () {
                 "eventLeftScope": false
             };
             var lambdaResult = lambdaRunner('configRules/EC2/cidrEgress', event);
-            return expect(lambdaResult).to.eventually.have.deep.property("compliance", "NON_COMPLIANT");
+            return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'NON_COMPLIANT');
         }
     );
 

@@ -5,10 +5,10 @@
  */
 
 // Require Logic
-var template = require('../../lib/template');
+var template = require('./distLib/template');
 
 
 // Lambda Handler
 module.exports.handler = function(event, context) {
-  template.defineTest(event, context, "EC2", "SecurityGroup", "CidrEgress");
+  template.defineTest(event, context, 'EC2', 'SecurityGroup', 'CidrEgress');
 };

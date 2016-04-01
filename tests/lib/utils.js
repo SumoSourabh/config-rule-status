@@ -7,7 +7,7 @@
 module.exports = Utils;
 function Utils () {}
 
-Utils.hexChars = "0123456789abcdef".split('');
+Utils.hexChars = '0123456789abcdef'.split('');
 Utils.generateRandomHex = function (length) {
 	var hexVal = '';
 	for (var i=0; i<length; i++) {
@@ -27,7 +27,7 @@ Utils.getAbsolutePath = function (path) {
 };
 
 Utils.outputJSON = function (json) {
-	console.log(typeof json === "object" ? JSON.stringify(json, null, "\t") : json);
+	console.log(typeof json === 'object' ? JSON.stringify(json, null, '\t') : json);
 };
 
 

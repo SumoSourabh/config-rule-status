@@ -15,6 +15,7 @@
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
+    "gulp-multistream": "^0.1.0",
     "jshint": "^2.9.1",
     "mocha": "^2.4.5",
     "sinon": "^1.17.3",
