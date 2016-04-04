@@ -74,8 +74,8 @@ gulp.task('copy:lib', ['lint'], function (cb) {
     return gulp.src('./configRules/lib/*.js').pipe(multistream.apply(undefined, destinations));
 });
 
-gulp.task('lint', ['clean:lib'], function() {
-    return gulp.src(['**/*.js','!node_modules/**', '!configRules/node_modules/**'])
+gulp.task('lint', function() {
+    return gulp.src(['**/*.js','!node_modules/**', '!configRules/node_modules/**', '!configRules/**/distLib/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -129,7 +129,9 @@ gulp.task('remove:ConfigRuleResources', function (callback) {
     _runServerless('configRuleResources', 'remove', callback);
 });
 
-gulp.task('default', ['build', 'test:local']);
+gulp.task('default', ['build', 'test']);
+
+gulp.task('test', ['lint', 'test:local']);
 
 gulp.task('build', ['clean:lib', 'lint', 'copy:lib']);
 
