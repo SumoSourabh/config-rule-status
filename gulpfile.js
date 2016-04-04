@@ -80,7 +80,7 @@ gulp.task('lint', ['clean:lib'], function() {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('init', function (callback) {
+gulp.task('init', ['copy:lib'], function (callback) {
     _runServerless('project', 'init', callback);
 });
 
@@ -129,7 +129,9 @@ gulp.task('remove:ConfigRuleResources', function (callback) {
     _runServerless('configRuleResources', 'remove', callback);
 });
 
-gulp.task('build', ['clean:lib', 'lint', 'copy:lib', 'test:local']);
+gulp.task('default', ['build', 'test:local']);
+
+gulp.task('build', ['clean:lib', 'lint', 'copy:lib']);
 
 gulp.task('deploy:lambda', ['build', 'deploy:LambdaResources', 'deploy:LambdaFunctions']);
 
