@@ -10,29 +10,28 @@ var lambdaRunner = require('./lib/runner.js').lambdaRunner;
 
 chai.use(chaiAsPromised);
 
-describe('EC2/cidrIngress', function () {
+describe('EC2/cidrIngress', function() {
     var globLib = require('../configRules/EC2/cidrIngress/distLib/global');
     var secGrpStub;
 
-    beforeEach(function () {
-        var consoleInfoStub = sinon.stub(console, 'info', function(){});
-        var consoleErrorStub = sinon.stub(console, 'error', function(){});
+    beforeEach(function() {
+        var consoleInfoStub = sinon.stub(console, 'info', function() {});
+        var consoleErrorStub = sinon.stub(console, 'error', function() {});
         secGrpStub = sinon.stub(globLib.ec2, 'describeSecurityGroups');
     });
 
-    afterEach(function () {
+    afterEach(function() {
         console.info.restore();
         console.error.restore();
         globLib.ec2.describeSecurityGroups.restore();
     });
 
     it('should be InvalidGroup',
-        function () {
-            secGrpStub.yields(
-                {
-                    message: 'The security group \'sg-111111\' does not exist',
-                    code: 'InvalidGroup.NotFound',
-                }, null);
+        function() {
+            secGrpStub.yields({
+                message: 'The security group \'sg-111111\' does not exist',
+                code: 'InvalidGroup.NotFound',
+            }, null);
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-365fe04e\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
                 "ruleParameters": "{}",
@@ -46,30 +45,24 @@ describe('EC2/cidrIngress', function () {
     );
 
     it('should be COMPLIANT',
-        function () {
+        function() {
             secGrpStub.yields(null, {
-                'SecurityGroups': [
-                    {
-                        'IpPermissionsEgress': [
-                            {
-                                'IpProtocol': '-1',
-                                'IpRanges': [
-                                    {
-                                        'CidrIp': '0.0.0.0/0'
-                                    }
-                                ],
-                                'UserIdGroupPairs': [],
-                                'PrefixListIds': []
-                            }
-                        ],
-                        'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
-                        'IpPermissions': [],
-                        'GroupName': 'launch-wizard-1',
-                        'VpcId': 'vpc-f399e097',
-                        'OwnerId': '592804526322',
-                        'GroupId': 'sg-ed58dd95'
-                    }
-                ]
+                'SecurityGroups': [{
+                    'IpPermissionsEgress': [{
+                        'IpProtocol': '-1',
+                        'IpRanges': [{
+                            'CidrIp': '0.0.0.0/0'
+                        }],
+                        'UserIdGroupPairs': [],
+                        'PrefixListIds': []
+                    }],
+                    'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
+                    'IpPermissions': [],
+                    'GroupName': 'launch-wizard-1',
+                    'VpcId': 'vpc-f399e097',
+                    'OwnerId': '592804526322',
+                    'GroupId': 'sg-ed58dd95'
+                }]
             });
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-ed58dd95\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
@@ -83,43 +76,33 @@ describe('EC2/cidrIngress', function () {
     );
 
     it('should be NON_COMPLIANT',
-        function () {
+        function() {
             secGrpStub.yields(null, {
-                'SecurityGroups': [
-                    {
-                        'IpPermissionsEgress': [
-                            {
-                                'IpProtocol': '-1',
-                                'IpRanges': [
-                                    {
-                                        'CidrIp': '0.0.0.0/0'
-                                    }
-                                ],
-                                'UserIdGroupPairs': [],
-                                'PrefixListIds': []
-                            }
-                        ],
-                        'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
-                        'IpPermissions': [
-                            {
-                                'PrefixListIds': [],
-                                'FromPort': 22,
-                                'IpRanges': [
-                                    {
-                                        'CidrIp': '0.0.0.0/0'
-                                    }
-                                ],
-                                'ToPort': 22,
-                                'IpProtocol': 'tcp',
-                                'UserIdGroupPairs': []
-                            }
-                        ],
-                        'GroupName': 'launch-wizard-1',
-                        'VpcId': 'vpc-f399e097',
-                        'OwnerId': '592804526322',
-                        'GroupId': 'sg-ed58dd95'
-                    }
-                ]
+                'SecurityGroups': [{
+                    'IpPermissionsEgress': [{
+                        'IpProtocol': '-1',
+                        'IpRanges': [{
+                            'CidrIp': '0.0.0.0/0'
+                        }],
+                        'UserIdGroupPairs': [],
+                        'PrefixListIds': []
+                    }],
+                    'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
+                    'IpPermissions': [{
+                        'PrefixListIds': [],
+                        'FromPort': 22,
+                        'IpRanges': [{
+                            'CidrIp': '0.0.0.0/0'
+                        }],
+                        'ToPort': 22,
+                        'IpProtocol': 'tcp',
+                        'UserIdGroupPairs': []
+                    }],
+                    'GroupName': 'launch-wizard-1',
+                    'VpcId': 'vpc-f399e097',
+                    'OwnerId': '592804526322',
+                    'GroupId': 'sg-ed58dd95'
+                }]
             });
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-ed58dd95\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
@@ -134,29 +117,28 @@ describe('EC2/cidrIngress', function () {
 
 });
 
-describe('EC2/cidrEgress', function () {
+describe('EC2/cidrEgress', function() {
     var globLib = require('../configRules/EC2/cidrEgress/distLib/global');
     var secGrpStub;
 
-    beforeEach(function () {
-        var consoleInfoStub = sinon.stub(console, 'info', function(){});
-        var consoleErrorStub = sinon.stub(console, 'error', function(){});
+    beforeEach(function() {
+        var consoleInfoStub = sinon.stub(console, 'info', function() {});
+        var consoleErrorStub = sinon.stub(console, 'error', function() {});
         secGrpStub = sinon.stub(globLib.ec2, 'describeSecurityGroups');
     });
 
-    afterEach(function () {
+    afterEach(function() {
         console.info.restore();
         console.error.restore();
         globLib.ec2.describeSecurityGroups.restore();
     });
 
     it('should be InvalidGroup',
-        function () {
-            secGrpStub.yields(
-                {
-                    message: 'The security group \'sg-111111\' does not exist',
-                    code: 'InvalidGroup.NotFound',
-                }, null);
+        function() {
+            secGrpStub.yields({
+                message: 'The security group \'sg-111111\' does not exist',
+                code: 'InvalidGroup.NotFound',
+            }, null);
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-365fe04e\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
                 "ruleParameters": "{}",
@@ -170,19 +152,17 @@ describe('EC2/cidrEgress', function () {
     );
 
     it('should be COMPLIANT',
-        function () {
+        function() {
             secGrpStub.yields(null, {
-                'SecurityGroups': [
-                    {
-                        'IpPermissionsEgress': [],
-                        'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
-                        'IpPermissions': [],
-                        'GroupName': 'launch-wizard-1',
-                        'VpcId': 'vpc-f399e097',
-                        'OwnerId': '592804526322',
-                        'GroupId': 'sg-ed58dd95'
-                    }
-                ]
+                'SecurityGroups': [{
+                    'IpPermissionsEgress': [],
+                    'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
+                    'IpPermissions': [],
+                    'GroupName': 'launch-wizard-1',
+                    'VpcId': 'vpc-f399e097',
+                    'OwnerId': '592804526322',
+                    'GroupId': 'sg-ed58dd95'
+                }]
             });
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-ed58dd95\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
@@ -196,43 +176,33 @@ describe('EC2/cidrEgress', function () {
     );
 
     it('should be NON_COMPLIANT',
-        function () {
+        function() {
             secGrpStub.yields(null, {
-                'SecurityGroups': [
-                    {
-                        'IpPermissionsEgress': [
-                            {
-                                'IpProtocol': '-1',
-                                'IpRanges': [
-                                    {
-                                        'CidrIp': '0.0.0.0/0'
-                                    }
-                                ],
-                                'UserIdGroupPairs': [],
-                                'PrefixListIds': []
-                            }
-                        ],
-                        'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
-                        'IpPermissions': [
-                            {
-                                'PrefixListIds': [],
-                                'FromPort': 22,
-                                'IpRanges': [
-                                    {
-                                        'CidrIp': '0.0.0.0/0'
-                                    }
-                                ],
-                                'ToPort': 22,
-                                'IpProtocol': 'tcp',
-                                'UserIdGroupPairs': []
-                            }
-                        ],
-                        'GroupName': 'launch-wizard-1',
-                        'VpcId': 'vpc-f399e097',
-                        'OwnerId': '592804526322',
-                        'GroupId': 'sg-ed58dd95'
-                    }
-                ]
+                'SecurityGroups': [{
+                    'IpPermissionsEgress': [{
+                        'IpProtocol': '-1',
+                        'IpRanges': [{
+                            'CidrIp': '0.0.0.0/0'
+                        }],
+                        'UserIdGroupPairs': [],
+                        'PrefixListIds': []
+                    }],
+                    'Description': 'launch-wizard-1 created 2016-03-10T10:51:56.616-05:00',
+                    'IpPermissions': [{
+                        'PrefixListIds': [],
+                        'FromPort': 22,
+                        'IpRanges': [{
+                            'CidrIp': '0.0.0.0/0'
+                        }],
+                        'ToPort': 22,
+                        'IpProtocol': 'tcp',
+                        'UserIdGroupPairs': []
+                    }],
+                    'GroupName': 'launch-wizard-1',
+                    'VpcId': 'vpc-f399e097',
+                    'OwnerId': '592804526322',
+                    'GroupId': 'sg-ed58dd95'
+                }]
             });
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-ed58dd95\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",

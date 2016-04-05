@@ -11,8 +11,7 @@ function guid() {
 }
 
 module.exports = function(lambdaName, cb) {
-    cb = cb || function() {
-        };
+    cb = cb || function() {};
 
     var id = guid(),
         name = lambdaName || 'test-lambda';
@@ -24,10 +23,10 @@ module.exports = function(lambdaName, cb) {
     var error = function(error) {
         done(error, null);
     };
-    
-    var done = function(error, result){
-        if (error !== null){
-            if (error.message.startsWith('Result Token provided is invalid')){
+
+    var done = function(error, result) {
+        if (error !== null) {
+            if (error.message.startsWith('Result Token provided is invalid')) {
 
                 // This error is expected to be thrown by Config.putEvaluations, because the
                 //stubbed event used for testing has a fake result token.
@@ -36,8 +35,7 @@ module.exports = function(lambdaName, cb) {
 
                 //console.error('Token error...getting compliance from error object...:' + error);
                 result = error;
-            }
-            else {
+            } else {
                 return cb(error, null);
             }
         }

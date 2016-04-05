@@ -1,6 +1,6 @@
 'use strict';
 
-var checkDefined = function (reference, referenceName) {
+var checkDefined = function(reference, referenceName) {
     if (!reference) {
         console.error('Error: ' + referenceName + ' is not defined');
         throw referenceName;
@@ -8,7 +8,7 @@ var checkDefined = function (reference, referenceName) {
     return reference;
 };
 
-var isApplicable = function (configurationItem, event) {
+var isApplicable = function(configurationItem, event) {
     checkDefined(configurationItem, 'configurationItem');
     checkDefined(event, 'event');
     var status = configurationItem.configurationItemStatus;
@@ -16,7 +16,7 @@ var isApplicable = function (configurationItem, event) {
     return ('OK' === status || 'ResourceDiscovered' === status) && false === eventLeftScope;
 };
 
-module.exports.evaluate = function (event, context, evalFunction) {
+module.exports.evaluate = function(event, context, evalFunction) {
     var globLib = require('./global');
     var config = globLib.configService;
     var configLib = require('./config');
@@ -25,8 +25,7 @@ module.exports.evaluate = function (event, context, evalFunction) {
     var configurationItem = checkDefined(invokingEvent.configurationItem, 'invokingEvent.configurationItem');
     if (isApplicable(invokingEvent.configurationItem, event)) {
         evalFunction(event, context, configurationItem);
-    }
-    else {
+    } else {
         var configurator = new configLib.configurator(event, context, config, configurationItem);
         configurator.setConfig('NOT_APPLICABLE');
     }

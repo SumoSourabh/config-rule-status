@@ -4,7 +4,7 @@ var utils = require('./utils');
 var ctx = require('./context.js');
 var BbPromise = require('bluebird');
 
-module.exports.lambdaRunner = function (func, evt) {
+module.exports.lambdaRunner = function(func, evt) {
     var lambdaPath = func + '/handler.js';
     var lambdaHandler = 'handler';
     // load lambda function
@@ -13,9 +13,9 @@ module.exports.lambdaRunner = function (func, evt) {
     var _event = evt;
 
     // create Promise wrapper for the lambda function
-    var p = new BbPromise(function(resolve){
+    var p = new BbPromise(function(resolve) {
         try {
-            lambdaFunc[lambdaHandler](_event, ctx(lambdaPath, function(err, result){
+            lambdaFunc[lambdaHandler](_event, ctx(lambdaPath, function(err, result) {
                 // Show error
                 if (err) {
                     //console.error('Err: '+ utils.outputJSON(err));
@@ -25,17 +25,15 @@ module.exports.lambdaRunner = function (func, evt) {
                 //console.error('Result: ' + utils.outputJSON(result));
                 return resolve(result);
             }));
-        }
-        catch (err) {
+        } catch (err) {
             //console.log('Error executing lambda: ' + err);
             return resolve(err);
 
         }
-    }).then(function(result){
+    }).then(function(result) {
         //console.error(utils.outputJSON(result));
         return result;
     });
 
     return p;
 };
-

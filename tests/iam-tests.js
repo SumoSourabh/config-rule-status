@@ -9,19 +9,19 @@ var lambdaRunner = require('./lib/runner.js').lambdaRunner;
 
 chai.use(chaiAsPromised);
 
-describe('IAM/userInlinePolicy', function () {
+describe('IAM/userInlinePolicy', function() {
     var globLib = require('../configRules/IAM/userInlinePolicy/distLib/global');
     var userStub;
     var userPoliciesStub;
 
-    beforeEach(function () {
-        var consoleInfoStub = sinon.stub(console, 'info', function(){});
-        var consoleErrorStub = sinon.stub(console, 'error', function(){});
+    beforeEach(function() {
+        var consoleInfoStub = sinon.stub(console, 'info', function() {});
+        var consoleErrorStub = sinon.stub(console, 'error', function() {});
         userStub = sinon.stub(globLib.iam, 'getUser');
         userPoliciesStub = sinon.stub(globLib.iam, 'listUserPolicies');
     });
 
-    afterEach(function () {
+    afterEach(function() {
         console.info.restore();
         console.error.restore();
         globLib.iam.getUser.restore();
@@ -29,12 +29,11 @@ describe('IAM/userInlinePolicy', function () {
     });
 
     it('should be NoSuchEntity',
-        function () {
-            userStub.yields(
-                {
-                    message: 'The user with name dave.bettinger.foo cannot be found.',
-                    code: 'NoSuchEntity',
-                }, null);
+        function() {
+            userStub.yields({
+                message: 'The user with name dave.bettinger.foo cannot be found.',
+                code: 'NoSuchEntity',
+            }, null);
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"null\",\"resourceType\":\"AWS::IAM::User\",\"tags\":{},\"relationships\":[],\"configuration\":{\"userName\":\"dave.bettinger.goldbase\"}}}",
                 "ruleParameters": "{}",
@@ -51,9 +50,11 @@ describe('IAM/userInlinePolicy', function () {
 
 
     it('should be COMPLIANT',
-        function () {
+        function() {
             userStub.yields(null, {
-                'User': {'UserName': 'dave.bettinger.goldbase'}
+                'User': {
+                    'UserName': 'dave.bettinger.goldbase'
+                }
             });
             userPoliciesStub.yields(null, {
                 'PolicyNames': []
@@ -70,9 +71,11 @@ describe('IAM/userInlinePolicy', function () {
     );
 
     it('should be NON_COMPLIANT',
-        function () {
+        function() {
             userStub.yields(null, {
-                'User': {'UserName': 'test.user'}
+                'User': {
+                    'UserName': 'test.user'
+                }
             });
             userPoliciesStub.yields(null, {
                 'PolicyNames': [
@@ -95,19 +98,19 @@ describe('IAM/userInlinePolicy', function () {
 });
 
 
-describe('IAM/userManagedPolicy', function () {
+describe('IAM/userManagedPolicy', function() {
     var globLib = require('../configRules/IAM/userManagedPolicy/distLib/global');
     var userStub;
     var userPoliciesStub;
 
-    beforeEach(function () {
-        var consoleInfoStub = sinon.stub(console, 'info', function(){});
-        var consoleErrorStub = sinon.stub(console, 'error', function(){});
+    beforeEach(function() {
+        var consoleInfoStub = sinon.stub(console, 'info', function() {});
+        var consoleErrorStub = sinon.stub(console, 'error', function() {});
         userStub = sinon.stub(globLib.iam, 'getUser');
         userPoliciesStub = sinon.stub(globLib.iam, 'listAttachedUserPolicies');
     });
 
-    afterEach(function () {
+    afterEach(function() {
         console.info.restore();
         console.error.restore();
         globLib.iam.getUser.restore();
@@ -115,12 +118,11 @@ describe('IAM/userManagedPolicy', function () {
     });
 
     it('should be NoSuchEntity',
-        function () {
-            userStub.yields(
-                {
-                    message: 'The user with name dave.bettinger.foo cannot be found.',
-                    code: 'NoSuchEntity',
-                }, null);
+        function() {
+            userStub.yields({
+                message: 'The user with name dave.bettinger.foo cannot be found.',
+                code: 'NoSuchEntity',
+            }, null);
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"null\",\"resourceType\":\"AWS::IAM::User\",\"tags\":{},\"relationships\":[],\"configuration\":{\"userName\":\"dave.bettinger.goldbase\"}}}",
                 "ruleParameters": "{}",
@@ -136,9 +138,11 @@ describe('IAM/userManagedPolicy', function () {
 
 
     it('should be COMPLIANT',
-        function () {
+        function() {
             userStub.yields(null, {
-                'User': {'UserName': 'dave.bettinger.goldbase'}
+                'User': {
+                    'UserName': 'dave.bettinger.goldbase'
+                }
             });
             userPoliciesStub.yields(null, {
                 'AttachedPolicies': []
@@ -156,17 +160,17 @@ describe('IAM/userManagedPolicy', function () {
     );
 
     it('should be NON_COMPLIANT',
-        function () {
+        function() {
             userStub.yields(null, {
-                'User': {'UserName': 'test.user'}
+                'User': {
+                    'UserName': 'test.user'
+                }
             });
             userPoliciesStub.yields(null, {
-                'AttachedPolicies': [
-                    {
-                        'PolicyName': 'AmazonS3ReadOnlyAccess',
-                        'PolicyArn': 'arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess'
-                    }
-                ]
+                'AttachedPolicies': [{
+                    'PolicyName': 'AmazonS3ReadOnlyAccess',
+                    'PolicyArn': 'arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess'
+                }]
             });
             var event = {
                 "invokingEvent": "{\"configurationItem\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"null\",\"resourceType\":\"AWS::IAM::User\",\"tags\":{},\"relationships\":[],\"configuration\":{\"userName\":\"dave.bettinger.goldbase\"}}}",

@@ -1,36 +1,36 @@
 {
-  "author": {
-    "name": "Dave Bettinger"
-  },
-  "dependencies": {
-    "bluebird": "^3.3.4",
-    "serverless-optimizer-plugin": "^2.0.0",
-    "serverless-synchronous-resource-plugin": "stelligent/serverless-synchronous-resource-plugin.git#master"
-  },
-  "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-as-promised": "^5.2.0",
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-jshint": "^2.0.0",
-    "gulp-mocha": "^2.2.0",
-    "gulp-multistream": "^0.1.0",
-    "jshint": "^2.9.1",
-    "mocha": "^2.4.5",
-    "sinon": "^1.17.3",
-    "yargs": "^4.3.1"
-  },
-  "license": "MIT",
-  "name": "config-rule-status",
-  "optionalDependencies": {},
-  "private": false,
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/stelligent/config-rule-status"
-  },
-  "scripts": {
-    "postinstall": "(cd configRules && npm install)"
-  },
-  "version": "0.0.1"
+    "author": {
+        "name": "Dave Bettinger"
+    },
+    "dependencies": {
+        "bluebird": "^3.3.4",
+        "serverless-optimizer-plugin": "^2.0.0",
+        "serverless-synchronous-resource-plugin": "stelligent/serverless-synchronous-resource-plugin.git#master"
+    },
+    "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "chai-as-promised": "^5.2.0",
+        "del": "^2.2.0",
+        "gulp": "^3.9.1",
+        "gulp-jshint": "^2.0.0",
+        "gulp-mocha": "^2.2.0",
+        "gulp-multistream": "^0.1.0",
+        "jshint": "^2.9.1",
+        "mocha": "^2.4.5",
+        "sinon": "^1.17.3",
+        "yargs": "^4.3.1"
+    },
+    "license": "MIT",
+    "name": "config-rule-status",
+    "optionalDependencies": {},
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/stelligent/config-rule-status"
+    },
+    "scripts": {
+        "postinstall": "(cd configRules && npm install)"
+    },
+    "version": "0.0.1"
 }

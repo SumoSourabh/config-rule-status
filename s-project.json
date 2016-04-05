@@ -1,13 +1,13 @@
 {
-  "name": "config-rule-status",
-  "custom": {},
-  "version": "0.0.1",
-  "profile": "config-rule-status-v0.0.1",
-  "location": "https://github.com/stelligent/config-rule-status.git",
-  "author": "Dave Bettinger",
-  "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
-  "plugins": [
-    "serverless-optimizer-plugin",
-    "serverless-synchronous-resource-plugin"
-  ]
+    "name": "config-rule-status",
+    "custom": {},
+    "version": "0.0.1",
+    "profile": "config-rule-status-v0.0.1",
+    "location": "https://github.com/stelligent/config-rule-status.git",
+    "author": "Dave Bettinger",
+    "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
+    "plugins": [
+        "serverless-optimizer-plugin",
+        "serverless-synchronous-resource-plugin"
+    ]
 }
