@@ -29,7 +29,17 @@ npm install --global gulp-cli
 
 **Initialize the project:**
 ```
-==> gulp init --region us-east-1 --stage prod --name config-rule-status --awsProfile yourProfileName --email user@company.com
+==> gulp init \
+--region us-east-1 \
+--stage prod \
+--name config-rule-status \
+--awsProfile yourProfileName \
+--email user@company.com
+```
+
+**Build the project:**
+```
+==> gulp build
 ```
 
 ## Execution
@@ -61,4 +71,3 @@ npm install --global gulp-cli
 
 Use the Serverless CLI to add new configurations and functionality:
 http://docs.serverless.com/docs/commands-overview
-
