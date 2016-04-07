@@ -35,7 +35,9 @@
               "Action": [
                 "iam:List*",
                 "iam:Get*",
-                "ec2:Describe*"
+                "ec2:Describe*",
+                "codepipeline:PutJobSuccessResult",
+                "codepipeline:PutJobFailureResult"
               ],
               "Effect": "Allow",
               "Resource": "*"
