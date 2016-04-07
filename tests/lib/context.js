@@ -20,7 +20,7 @@ module.exports = function(lambdaName, cb) {
         done(null, result);
     };
 
-    var error = function(error) {
+    var fail = function(error) {
         done(error, null);
     };
 
@@ -53,7 +53,7 @@ module.exports = function(lambdaName, cb) {
         memoryLimitInMB: '1024',
 
         succeed: succeed,
-        fail: error,
+        fail: fail,
         done: cb,
 
         getRemainingTimeInMillis: function() {

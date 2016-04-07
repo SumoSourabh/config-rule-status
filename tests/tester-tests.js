@@ -6,11 +6,12 @@ var chaiAsPromised = require('chai-as-promised');
 var expect = chai.expect;
 var sinon = require('sinon');
 var lambdaRunner = require('./lib/runner.js').lambdaRunner;
+var globLib = require('../components/lib/global');
 
 chai.use(chaiAsPromised);
 
 describe('tester', function() {
-    var globLib = require('../configRules/tester/distLib/global');
+
     var configRulesStub;
     var configRulesComplianceStub;
 
@@ -26,6 +27,19 @@ describe('tester', function() {
         console.error.restore();
         globLib.configService.describeConfigRules.restore();
         globLib.configService.describeComplianceByConfigRule.restore();
+    });
+
+    it('should error on describeConfigRules', function () {
+        configRulesStub.yields({
+            'code': 'Some Error',
+            'message': 'describeConfigRules call failed',
+            'retryable': false,
+            'statusCode': 1,
+            'time': new Date()
+        }, null);
+        var event = {};
+            var lambdaResult = lambdaRunner('components/complianceTest/tester', event);
+            return expect(lambdaResult).to.eventually.have.deep.property('message', 'describeConfigRules call failed');
     });
 
     it('should PASS',
@@ -58,7 +72,7 @@ describe('tester', function() {
                 }]
             });
             var event = {};
-            var lambdaResult = lambdaRunner('configRules/tester', event);
+            var lambdaResult = lambdaRunner('components/complianceTest/tester', event);
             return expect(lambdaResult).to.eventually.have.deep.property('result', 'PASS');
 
 
@@ -96,7 +110,7 @@ describe('tester', function() {
                 }]
             });
             var event = {};
-            var lambdaResult = lambdaRunner('configRules/tester', event);
+            var lambdaResult = lambdaRunner('components/complianceTest/tester', event);
             return expect(lambdaResult).to.eventually.have.deep.property('result', 'FAIL');
         }
     );

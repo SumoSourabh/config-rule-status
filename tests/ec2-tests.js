@@ -6,12 +6,11 @@ var chaiAsPromised = require('chai-as-promised');
 var expect = chai.expect;
 var sinon = require('sinon');
 var lambdaRunner = require('./lib/runner.js').lambdaRunner;
-
+var globLib = require('../components/lib/global');
 
 chai.use(chaiAsPromised);
 
-describe('EC2/cidrIngress', function() {
-    var globLib = require('../configRules/EC2/cidrIngress/distLib/global');
+describe('ec2CidrIngress', function() {
     var secGrpStub;
 
     beforeEach(function() {
@@ -38,7 +37,7 @@ describe('EC2/cidrIngress', function() {
                 "resultToken": "null",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/EC2/cidrIngress', event);
+            var lambdaResult = lambdaRunner('components/configRules/ec2CidrIngress', event);
             return expect(lambdaResult).to.eventually.have.deep.property('code', 'InvalidGroup.NotFound');
 
         }
@@ -70,7 +69,7 @@ describe('EC2/cidrIngress', function() {
                 "resultToken": "null",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/EC2/cidrIngress', event);
+            var lambdaResult = lambdaRunner('components/configRules/ec2CidrIngress', event);
             return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'COMPLIANT');
         }
     );
@@ -110,15 +109,14 @@ describe('EC2/cidrIngress', function() {
                 "resultToken": "null",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/EC2/cidrIngress', event);
+            var lambdaResult = lambdaRunner('components/configRules/ec2CidrIngress', event);
             return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'NON_COMPLIANT');
         }
     );
 
 });
 
-describe('EC2/cidrEgress', function() {
-    var globLib = require('../configRules/EC2/cidrEgress/distLib/global');
+describe('ec2CidrEgress', function() {
     var secGrpStub;
 
     beforeEach(function() {
@@ -145,7 +143,7 @@ describe('EC2/cidrEgress', function() {
                 "resultToken": "null",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/EC2/cidrEgress', event);
+            var lambdaResult = lambdaRunner('components/configRules/ec2CidrEgress', event);
             return expect(lambdaResult).to.eventually.have.deep.property('code', 'InvalidGroup.NotFound');
 
         }
@@ -170,7 +168,7 @@ describe('EC2/cidrEgress', function() {
                 "resultToken": "null",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/EC2/cidrEgress', event);
+            var lambdaResult = lambdaRunner('components/configRules/ec2CidrEgress', event);
             return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'COMPLIANT');
         }
     );
@@ -210,7 +208,7 @@ describe('EC2/cidrEgress', function() {
                 "resultToken": "null",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/EC2/cidrEgress', event);
+            var lambdaResult = lambdaRunner('components/configRules/ec2CidrEgress', event);
             return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'NON_COMPLIANT');
         }
     );

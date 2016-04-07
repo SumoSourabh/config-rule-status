@@ -6,11 +6,12 @@ var chaiAsPromised = require('chai-as-promised');
 var expect = chai.expect;
 var sinon = require('sinon');
 var lambdaRunner = require('./lib/runner.js').lambdaRunner;
+var globLib = require('../components/lib/global');
 
 chai.use(chaiAsPromised);
 
 describe('IAM/userInlinePolicy', function() {
-    var globLib = require('../configRules/IAM/userInlinePolicy/distLib/global');
+
     var userStub;
     var userPoliciesStub;
 
@@ -40,7 +41,7 @@ describe('IAM/userInlinePolicy', function() {
                 "resultToken": "38400000-8cf0-11bd-b23e-10b96e4ef00d",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/IAM/userInlinePolicy', event);
+            var lambdaResult = lambdaRunner('components/configRules/iamUserInlinePolicy', event);
             return expect(lambdaResult).to.eventually.have.deep.property('code', 'NoSuchEntity');
 
 
@@ -65,7 +66,7 @@ describe('IAM/userInlinePolicy', function() {
                 "resultToken": "38400000-8cf0-11bd-b23e-10b96e4ef00d",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/IAM/userInlinePolicy', event);
+            var lambdaResult = lambdaRunner('components/configRules/iamUserInlinePolicy', event);
             return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'COMPLIANT');
         }
     );
@@ -88,7 +89,7 @@ describe('IAM/userInlinePolicy', function() {
                 "resultToken": "38400000-8cf0-11bd-b23e-10b96e4ef00d",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/IAM/userInlinePolicy', event);
+            var lambdaResult = lambdaRunner('components/configRules/iamUserInlinePolicy', event);
             return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'NON_COMPLIANT');
 
         }
@@ -99,7 +100,6 @@ describe('IAM/userInlinePolicy', function() {
 
 
 describe('IAM/userManagedPolicy', function() {
-    var globLib = require('../configRules/IAM/userManagedPolicy/distLib/global');
     var userStub;
     var userPoliciesStub;
 
@@ -129,7 +129,7 @@ describe('IAM/userManagedPolicy', function() {
                 "resultToken": "38400000-8cf0-11bd-b23e-10b96e4ef00d",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/IAM/userManagedPolicy', event);
+            var lambdaResult = lambdaRunner('components/configRules/iamUserManagedPolicy', event);
             return expect(lambdaResult).to.eventually.have.deep.property('code', 'NoSuchEntity');
 
 
@@ -154,7 +154,7 @@ describe('IAM/userManagedPolicy', function() {
                 "resultToken": "38400000-8cf0-11bd-b23e-10b96e4ef00d",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/IAM/userManagedPolicy', event);
+            var lambdaResult = lambdaRunner('components/configRules/iamUserManagedPolicy', event);
             return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'COMPLIANT');
         }
     );
@@ -178,7 +178,7 @@ describe('IAM/userManagedPolicy', function() {
                 "resultToken": "38400000-8cf0-11bd-b23e-10b96e4ef00d",
                 "eventLeftScope": false
             };
-            var lambdaResult = lambdaRunner('configRules/IAM/userManagedPolicy', event);
+            var lambdaResult = lambdaRunner('components/configRules/iamUserManagedPolicy', event);
             return expect(lambdaResult).to.eventually.have.deep.property('compliance', 'NON_COMPLIANT');
 
         }

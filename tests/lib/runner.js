@@ -18,20 +18,20 @@ module.exports.lambdaRunner = function(func, evt) {
             lambdaFunc[lambdaHandler](_event, ctx(lambdaPath, function(err, result) {
                 // Show error
                 if (err) {
-                    //console.error('Err: '+ utils.outputJSON(err));
+                    //console.error('Err: ' + lambdaPath + ': ' + utils.outputJSON(err));
                     return resolve(err);
                 }
                 // Show success response
-                //console.error('Result: ' + utils.outputJSON(result));
+                //console.error('Result: ' + lambdaPath + ': ' + utils.outputJSON(result));
                 return resolve(result);
             }));
         } catch (err) {
-            //console.log('Error executing lambda: ' + err);
+            //console.error('Error executing lambda: ' + lambdaPath + ': ' + err);
             return resolve(err);
 
         }
     }).then(function(result) {
-        //console.error(utils.outputJSON(result));
+        //console.info(utils.outputJSON('Then Result: ' + lambdaPath + ': ' + result));
         return result;
     });
 
