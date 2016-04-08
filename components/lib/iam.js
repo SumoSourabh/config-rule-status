@@ -24,23 +24,6 @@ module.exports.getFunctions = function() {
                 }
 
             });
-        },
-        evaluateIAMPolicy: function(event, context, configurationItem, rule) {
-            var params = {
-                'PolicyArn': configurationItem.ARN
-            };
-            iam.getPolicy(params, function(err, data) {
-                var responseData = {};
-                if (err) {
-                    responseData = {
-                        Error: 'getPolicy call failed'
-                    };
-                    console.error(responseData.Error + ':\n', err.code + ': ' + err.message);
-                } else {
-                    var configurator = new configLib.configurator(event, context, config, configurationItem);
-                    rule.test(data.Policy, configurator);
-                }
-            });
         }
     };
 };

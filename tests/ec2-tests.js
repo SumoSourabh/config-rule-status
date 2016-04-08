@@ -25,6 +25,21 @@ describe('ec2CidrIngress', function() {
         globLib.ec2.describeSecurityGroups.restore();
     });
 
+    it('should be rejected with undefined invokingEvent.configurationItem',
+        function() {
+
+            var event = {
+                "invokingEvent": "{\"foo\":{\"configurationItemCaptureTime\":\"2015-09-25T04:05:35.693Z\",\"configurationItemStatus\":\"OK\",\"resourceId\":\"sg-365fe04e\",\"resourceType\":\"AWS::EC2::SecurityGroup\",\"tags\":{},\"relationships\":[]}}",
+                "ruleParameters": "{}",
+                "resultToken": "null",
+                "eventLeftScope": false
+            };
+            var lambdaResult = lambdaRunner('components/configRules/ec2CidrIngress', event);
+            return expect(lambdaResult).to.be.rejectedWith('invokingEvent.configurationItem');
+
+        }
+    );
+
     it('should be InvalidGroup',
         function() {
             secGrpStub.yields({

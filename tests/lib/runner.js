@@ -13,7 +13,7 @@ module.exports.lambdaRunner = function(func, evt) {
     var _event = evt;
 
     // create Promise wrapper for the lambda function
-    var p = new BbPromise(function(resolve) {
+    var p = new BbPromise(function(resolve, reject) {
         try {
             lambdaFunc[lambdaHandler](_event, ctx(lambdaPath, function(err, result) {
                 // Show error
@@ -27,7 +27,7 @@ module.exports.lambdaRunner = function(func, evt) {
             }));
         } catch (err) {
             //console.error('Error executing lambda: ' + lambdaPath + ': ' + err);
-            return resolve(err);
+            return reject(err);
 
         }
     }).then(function(result) {

@@ -19,16 +19,8 @@ module.exports.getFunctions = function() {
                     console.error(responseData.Error + ':\n', err.code + ': ' + err.message);
                     return context.fail(err);
                 } else {
-                    if (data.SecurityGroups.length === 0) {
-                        responseData = {
-                            Error: 'Security Group not found'
-                        };
-                        console.error(responseData.Error + ':\n', err.code + ': ' + err.message);
-                        return context.fail(err);
-                    } else {
-                        var configurator = new configLib.configurator(event, context, config, configurationItem);
-                        rule.test(data.SecurityGroups[0], configurator);
-                    }
+                    var configurator = new configLib.configurator(event, context, config, configurationItem);
+                    rule.test(data.SecurityGroups[0], configurator);
                 }
             });
         }
