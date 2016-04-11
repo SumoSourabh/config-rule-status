@@ -3,7 +3,9 @@
     "name": "Dave Bettinger"
   },
   "dependencies": {
+    "aws-config": "^1.0.7",
     "bluebird": "^3.3.4",
+    "serverless": "^0.5.3",
     "serverless-optimizer-plugin": "^2.0.0",
     "serverless-synchronous-resource-plugin": "stelligent/serverless-synchronous-resource-plugin.git#master"
   },
