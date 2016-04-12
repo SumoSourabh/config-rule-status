@@ -7,7 +7,7 @@
     "bluebird": "^3.3.4",
     "serverless": "^0.5.3",
     "serverless-optimizer-plugin": "^2.0.0",
-    "serverless-synchronous-resource-plugin": "stelligent/serverless-synchronous-resource-plugin.git#master"
+    "serverless-synchronous-resource-plugin": "^0.1.0"
   },
   "description": "A project to create AWS Config Rules and use them to test AWS Resource compliance.",
   "devDependencies": {
