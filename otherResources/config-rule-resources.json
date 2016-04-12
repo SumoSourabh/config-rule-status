@@ -91,7 +91,7 @@
                         }, {
                             "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                         }, {
-                            "Fn::Join": [":", ["-userMFA", {
+                            "Fn::Join": [":", ["-iamUserMFA", {
                                 "Ref": "LambdaStage"
                             }]]
                         }]]
@@ -128,7 +128,7 @@
                         }, {
                             "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                         }, {
-                            "Fn::Join": [":", ["-userInlinePolicy", {
+                            "Fn::Join": [":", ["-iamUserInlinePolicy", {
                                 "Ref": "LambdaStage"
                             }]]
                         }]]
@@ -165,7 +165,7 @@
                         }, {
                             "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                         }, {
-                            "Fn::Join": [":", ["-userManagedPolicy", {
+                            "Fn::Join": [":", ["-iamUserManagedPolicy", {
                                 "Ref": "LambdaStage"
                             }]]
                         }]]
@@ -202,7 +202,7 @@
                         }, {
                             "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                         }, {
-                            "Fn::Join": [":", ["-cidrIngress", {
+                            "Fn::Join": [":", ["-ec2CidrIngress", {
                                 "Ref": "LambdaStage"
                             }]]
                         }]]
@@ -239,7 +239,7 @@
                         }, {
                             "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                         }, {
-                            "Fn::Join": [":", ["-cidrEgress", {
+                            "Fn::Join": [":", ["-ec2CidrEgress", {
                                 "Ref": "LambdaStage"
                             }]]
                         }]]
@@ -263,7 +263,7 @@
                     }, {
                         "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                     }, {
-                        "Fn::Join": [":", ["-userMFA", {
+                        "Fn::Join": [":", ["-iamUserMFA", {
                             "Ref": "LambdaStage"
                         }]]
                     }]]
@@ -287,7 +287,7 @@
                     }, {
                         "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                     }, {
-                        "Fn::Join": [":", ["-userInlinePolicy", {
+                        "Fn::Join": [":", ["-iamUserInlinePolicy", {
                             "Ref": "LambdaStage"
                         }]]
                     }]]
@@ -311,7 +311,7 @@
                     }, {
                         "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                     }, {
-                        "Fn::Join": [":", ["-userManagedPolicy", {
+                        "Fn::Join": [":", ["-iamUserManagedPolicy", {
                             "Ref": "LambdaStage"
                         }]]
                     }]]
@@ -335,7 +335,7 @@
                     }, {
                         "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                     }, {
-                        "Fn::Join": [":", ["-cidrIngress", {
+                        "Fn::Join": [":", ["-ec2CidrIngress", {
                             "Ref": "LambdaStage"
                         }]]
                     }]]
@@ -359,7 +359,7 @@
                     }, {
                         "Fn::FindInMap": ["LambdaArn", "FunctionPrefix", "Segment"]
                     }, {
-                        "Fn::Join": [":", ["-cidrEgress", {
+                        "Fn::Join": [":", ["-ec2CidrEgress", {
                             "Ref": "LambdaStage"
                         }]]
                     }]]

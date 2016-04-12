@@ -42,12 +42,12 @@ var options = {
         remove: ['resources', 'remove']
     },
     configServiceResources: {
-        deploy: ['synchronousResources', 'deploy', '-t', 'otherResources/config-service-resources.json'],
-        remove: ['synchronousResources', 'remove', '-t', 'otherResources/config-service-resources.json']
+        deploy: ['synchronousResources', 'deploy', '-t', 'otherResources/config-service-resources.json', '-c', 'cfnConfig.json'],
+        remove: ['synchronousResources', 'remove', '-t', 'otherResources/config-service-resources.json', '-c', 'cfnConfig.json']
     },
     configRuleResources: {
-        deploy: ['synchronousResources', 'deploy', '-t', 'otherResources/config-rule-resources.json'],
-        remove: ['synchronousResources', 'remove', '-t', 'otherResources/config-rule-resources.json']
+        deploy: ['synchronousResources', 'deploy', '-t', 'otherResources/config-rule-resources.json', '-c', 'cfnConfig.json'],
+        remove: ['synchronousResources', 'remove', '-t', 'otherResources/config-rule-resources.json', '-c', 'cfnConfig.json']
     }
 };
 
