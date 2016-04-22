@@ -95,6 +95,7 @@ function _runServerless(options, callback) {
     }
 
     if (options.fromPipeline) {
+      console.log('exec command: ' + 'serverless ' + cmd.join(' '));
         exec('serverless ' + cmd.join(' '), procOptions, function(error, stdout, stderr) {
             console.log('stdout: ' + stdout);
             callback(stdout);
