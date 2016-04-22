@@ -26,7 +26,7 @@ module.exports = function(lambdaName, cb) {
 
     var done = function(error, result) {
         if (error !== null) {
-            if (error.message.startsWith('Result Token provided is invalid')) {
+            if (error.message.toString().startsWith('Result Token provided is invalid')) {
 
                 // This error is expected to be thrown by Config.putEvaluations, because the
                 //stubbed event used for testing has a fake result token.

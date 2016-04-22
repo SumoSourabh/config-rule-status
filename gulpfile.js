@@ -3,12 +3,30 @@
 
 var actions = require('./actions');
 var gulp = require('gulp');
-var argv = require('yargs').argv;
+var argv;
 
+function _getYargs(){
+  argv = require('yargs')(process.argv).argv;
+}
+
+function _prepEnv(args){
+  Object.keys(args).forEach(function(key){
+    process.argv.push('--' + key);
+    process.argv.push(args[key]);
+  });
+}
+
+gulp.task('args', function(){
+  _getYargs();
+});
 
 /* Gulp Tasks */
-gulp.task('init', function(callback) {
+gulp.task('initWithProfile', function(callback) {
     actions.initWithProfile(argv.name, argv.awsProfile, argv.email, argv.stage, argv.region, callback);
+});
+
+gulp.task('initWithoutProfile', function(callback) {
+    actions.initWithoutProfile(argv.name, argv.email, argv.stage, argv.region, callback);
 });
 
 gulp.task('clean:node_modules', function() {
@@ -79,14 +97,30 @@ gulp.task('logs', function(callback) {
     return actions.functionLogs(argv.name, argv.duration, argv.stage, argv.region, callback);
 });
 
-gulp.task('default', ['build']);
+//Top Level Gulp Tasks
+gulp.task('default', ['test', 'build']);
+
+gulp.task('initFromPipeline', ['args', 'initWithoutProfile']);
 
 gulp.task('test', ['lint', 'test:local']);
 
-gulp.task('build', ['test', 'clean:dist', 'copy:lib', 'copy:functions']);
+gulp.task('build', ['clean:dist', 'copy:lib', 'copy:functions']);
 
-gulp.task('deploy:lambda', ['deploy:LambdaResources', 'deploy:LambdaFunctions']);
+gulp.task('deploy:lambda', ['args', 'deploy:LambdaResources', 'deploy:LambdaFunctions']);
 
-gulp.task('deploy:config', ['deploy:ConfigServiceResources', 'deploy:ConfigRuleResources']);
+gulp.task('deploy:config', ['args', 'deploy:ConfigServiceResources', 'deploy:ConfigRuleResources']);
 
-gulp.task('remove:config', ['remove:ConfigServiceResources', 'remove:ConfigRuleResources']);
+gulp.task('remove:config', ['args', 'remove:ConfigServiceResources', 'remove:ConfigRuleResources']);
+
+gulp.task('verify', ['args', 'test:deployed']);
+
+
+//Top Level Gulp Task Wrapper Function
+module.exports.runTask = function(options, callback){
+  if(options.args){
+    _prepEnv(options.args);
+  }
+  gulp.start(options.task, function(){
+    callback();
+  });
+};
