@@ -13,7 +13,7 @@ var replace = require('gulp-replace');
 var mergestream = require('merge-stream')();
 var jsonTransform = require('gulp-json-transform');
 var awsConfig = require('aws-config');
-
+var slsPath = 'node_modules/serverless/bin/';
 var basePath = 'components/';
 var libPath = basePath + 'lib/';
 var modulePath = basePath + 'node_modules/';
@@ -95,8 +95,8 @@ function _runServerless(options, callback) {
     }
 
     if (options.fromPipeline) {
-      console.log('exec command: ' + 'serverless ' + cmd.join(' '));
-        exec('serverless ' + cmd.join(' '), procOptions, function(error, stdout, stderr) {
+      console.log('exec command: ' + slsPath + 'serverless ' + cmd.join(' '));
+        exec(slsPath + 'serverless ' + cmd.join(' '), procOptions, function(error, stdout, stderr) {
             console.log('stdout: ' + stdout);
             callback(stdout);
             if (error !== null) {
@@ -106,7 +106,9 @@ function _runServerless(options, callback) {
         });
     } else {
         procOptions.stdio = 'inherit';
-        sls = spawn('serverless', cmd, procOptions);
+        console.log(cmd);
+        console.log(procOptions);
+        sls = spawn(slsPath + 'serverless', cmd, procOptions);
         sls.on('close', function(code) {
             callback(code);
         });
