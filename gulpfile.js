@@ -100,6 +100,8 @@ gulp.task('logs', function(callback) {
 //Top Level Gulp Tasks
 gulp.task('default', ['test', 'build']);
 
+gulp.task('init', ['args', 'initWithProfile'])
+
 gulp.task('initFromPipeline', ['args', 'initWithoutProfile']);
 
 gulp.task('test', ['lint', 'test:local']);
