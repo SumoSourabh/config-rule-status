@@ -106,8 +106,6 @@ function _runServerless(options, callback) {
         });
     } else {
         procOptions.stdio = 'inherit';
-        console.log(cmd);
-        console.log(procOptions);
         sls = spawn(slsPath + 'serverless', cmd, procOptions);
         sls.on('close', function(code) {
             callback(code);
