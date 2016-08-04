@@ -30,6 +30,8 @@ node_modules
 
 #IDE Stuff
 **/.idea
+.vscode
+.history
 
 #OS STUFF
 .DS_Store
