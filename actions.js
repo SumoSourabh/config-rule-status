@@ -121,8 +121,6 @@ function _runServerless(options, callback) {
 
 function _setAWSEnv(stage, region) {
     var config = _getAWSConfig(stage, region);
-    process.env.AWS_PROFILE = config.profile;
-    process.env.AWS_REGION = config.region;
 }
 
 function _getAWSConfig(stage, region) {
@@ -145,6 +143,7 @@ function _getAWSProfile(stage) {
             aws_profile = val;
         }
     });
+    console.log("Using AWS Profile: " + aws_profile)
     return aws_profile;
 }
 

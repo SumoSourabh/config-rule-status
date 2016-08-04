@@ -57,7 +57,7 @@ npm install --global gulp-cli
 
 **Verify Deploy and/or Integrate into a CD pipeline**
 ```
-==> gulp test:deployed --stage prod --region us-east-1
+==> gulp verify --stage prod --region us-east-1
 ```
 
 **View Lambda logs**
