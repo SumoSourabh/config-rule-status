@@ -129,7 +129,11 @@
                                 "iam:ListInstanceProfilesForRole",
                                 "iam:ListPolicyVersions",
                                 "iam:ListRolePolicies",
-                                "iam:ListUserPolicies"
+                                "iam:ListUserPolicies",
+                                "iam:ListMFADevices",
+                                "cloudtrail:DescribeTrails",
+                                "cloudtrail:GetTrailStatus",
+                                "cloudtrail:LookupEvents"
                             ],
                             "Resource": "*"
                         }]

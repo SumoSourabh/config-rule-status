@@ -10,7 +10,7 @@ describe('ConfigRuleStatus-tester', function() {
     it('should PASS',
         function() {
             var event = {};
-            var lambdaResult = lambdaRunner('ConfigRuleStatus-tester', 'us-east-1', 'prod', event);
+            var lambdaResult = lambdaRunner('ConfigRuleStatus-tester', 'us-east-1', 'beta', event);
             return expect(lambdaResult).to.eventually.have.property('result', 'PASS');
         }
     );
